@@ -133,12 +133,8 @@ function parseGame(event: any): Game {
   const awayAbbr = awayCompetitor?.team?.abbreviation?.toUpperCase();
   const bothSEC = SEC_TEAMS.includes(homeAbbr) && SEC_TEAMS.includes(awayAbbr);
 
-  // Check if conference game - ESPN marks this in conferenceCompetition or notes
-  const isConference =
-    competition?.conferenceCompetition === true ||
-    event.notes?.some((n: any) => n.headline?.includes("SEC")) ||
-    competition?.notes?.some((n: any) => n.headline?.includes("SEC")) ||
-    bothSEC;
+  // Check if SEC conference game - only trust our explicit team list
+  const isConference = bothSEC;
 
   return {
     id: event.id,
