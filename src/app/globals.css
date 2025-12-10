@@ -126,3 +126,9 @@
     @apply bg-background text-foreground;
   }
 }
+
+/* Keep pixel art crisp when scaled */
+.pixelated {
+  image-rendering: pixelated;
+  image-rendering: crisp-edges;
+}

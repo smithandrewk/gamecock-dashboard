@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Skeleton } from "@/components/ui/skeleton";
@@ -96,29 +97,52 @@ function UpcomingGameHero({ game }: { game: Game }) {
     <Card className="border-primary/30">
       <CardContent className="p-6">
         <div className="text-center">
-          <p className="text-sm text-muted-foreground mb-2">
+          <p className="text-sm text-muted-foreground mb-4">
             {isToday ? "Today" : "Next Game"}
           </p>
 
-          <div className="flex items-center justify-center gap-4 mb-4">
-            {opponent.logo && (
-              <img
-                src={opponent.logo}
-                alt={opponent.name}
-                className="w-20 h-20 object-contain"
+          {/* Team logos side by side */}
+          <div className="flex items-center justify-center gap-6 mb-3">
+            <div className="flex flex-col items-center">
+              <Image
+                src="/gamecock.svg"
+                alt="South Carolina"
+                width={64}
+                height={70}
+                className="pixelated"
               />
-            )}
-            <div className="text-left">
-              <p className="text-lg font-semibold">
-                {isHome ? "vs" : "@"} {opponent.displayName}
-              </p>
-              {opponent.rank && (
-                <Badge variant="secondary">#{opponent.rank}</Badge>
+              <span className="text-xs text-muted-foreground mt-1">USC</span>
+            </div>
+
+            <span className="text-2xl font-light text-muted-foreground">
+              {isHome ? "vs" : "@"}
+            </span>
+
+            <div className="flex flex-col items-center">
+              {opponent.logo ? (
+                <img
+                  src={opponent.logo}
+                  alt={opponent.name}
+                  className="w-16 h-16 object-contain"
+                />
+              ) : (
+                <div className="w-16 h-16 bg-muted rounded-full flex items-center justify-center">
+                  <span className="text-lg font-bold">{opponent.abbreviation}</span>
+                </div>
               )}
+              <span className="text-xs text-muted-foreground mt-1">{opponent.abbreviation}</span>
             </div>
           </div>
 
-          <div className="text-4xl font-bold text-primary mb-2">
+          {/* Opponent name */}
+          <p className="text-lg font-semibold mb-1">
+            {isHome ? "vs" : "@"} {opponent.displayName}
+          </p>
+          {opponent.rank && (
+            <Badge variant="secondary" className="mb-3">#{opponent.rank}</Badge>
+          )}
+
+          <div className="text-4xl font-bold text-primary mb-2 mt-3">
             {formatCountdown(game.date)}
           </div>
 

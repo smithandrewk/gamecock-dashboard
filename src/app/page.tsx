@@ -9,18 +9,28 @@ import { ScheduleList } from "@/components/ScheduleList";
 import { ResultsList } from "@/components/ResultsList";
 import { StreakChart } from "@/components/StreakChart";
 import { Skeleton } from "@/components/ui/skeleton";
+import Image from "next/image";
 
 export default function Home() {
-  const [sport, setSport] = useState<Sport>("mbb");
+  const [sport, setSport] = useState<Sport>("wbb");
   const { data, isLoading, error } = useTeamData(sport);
 
   return (
     <div className="min-h-screen bg-background">
       <header className="sticky top-0 z-50 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 border-b">
         <div className="container max-w-2xl mx-auto px-4 py-4">
-          <h1 className="text-xl font-bold text-center mb-4 text-primary">
-            Gamecock AI
-          </h1>
+          <div className="flex items-center justify-center gap-2 mb-4">
+            <Image
+              src="/gamecock.svg"
+              alt="Gamecock"
+              width={32}
+              height={35}
+              className="pixelated"
+            />
+            <h1 className="text-xl font-bold text-primary">
+              Gamecock AI
+            </h1>
+          </div>
           <SportTabs value={sport} onChange={setSport} />
         </div>
       </header>

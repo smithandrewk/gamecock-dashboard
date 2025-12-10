@@ -16,6 +16,12 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "Gamecock AI",
   description: "Live scores, schedules, and stats for USC Gamecocks basketball",
+  icons: {
+    icon: [
+      { url: "/gamecock.svg", type: "image/svg+xml" },
+    ],
+    apple: "/gamecock.svg",
+  },
   openGraph: {
     title: "Gamecock AI",
     description: "Live scores, schedules, and stats for USC Gamecocks basketball",
