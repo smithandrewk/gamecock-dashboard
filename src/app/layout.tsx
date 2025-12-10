@@ -28,20 +28,11 @@ export const metadata: Metadata = {
     url: "https://www.gamecock.ai",
     siteName: "Gamecock AI",
     type: "website",
-    images: [
-      {
-        url: "https://www.gamecock.ai/og-image.png",
-        width: 512,
-        height: 563,
-        alt: "Gamecock AI",
-      },
-    ],
   },
   twitter: {
     card: "summary",
     title: "Gamecock AI",
     description: "Live scores, schedules, and stats for USC Gamecocks basketball",
-    images: ["https://www.gamecock.ai/og-image.png"],
   },
 };
 
