@@ -20,7 +20,7 @@ export const metadata: Metadata = {
     icon: [
       { url: "/gamecock.svg", type: "image/svg+xml" },
     ],
-    apple: "/gamecock.svg",
+    apple: "/apple-touch-icon.png",
   },
   openGraph: {
     title: "Gamecock AI",
