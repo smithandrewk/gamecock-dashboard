@@ -121,20 +121,31 @@ function parseGame(event: any): Game {
     competition?.broadcasts?.[0]?.names?.[0] ||
     competition?.geoBroadcasts?.[0]?.media?.shortName;
 
-  // SEC team abbreviations for fallback conference detection
+  // SEC team abbreviations for conference detection
+  // ESPN uses different abbreviations across endpoints, so include all variants
   const SEC_TEAMS = [
     "ALA", "ARK", "AUB", "FLA", "UGA", "UK", "LSU", "MISS", "MSST",
-    "MIZZ", "SC", "TENN", "TAMU", "VAN", "OKLA", "TEX",
-    // Alternative abbreviations
-    "BAMA", "KENTUCKY", "OLE MISS", "TEXAS", "OKLAHOMA"
+    "MIZ", "SC", "TENN", "TAMU", "VAN", "OU", "TEX",
+    // Alternative abbreviations used by ESPN
+    "MIZZ", "OKLA", "TA&M", "BAMA"
   ];
 
   const homeAbbr = homeCompetitor?.team?.abbreviation?.toUpperCase();
   const awayAbbr = awayCompetitor?.team?.abbreviation?.toUpperCase();
   const bothSEC = SEC_TEAMS.includes(homeAbbr) && SEC_TEAMS.includes(awayAbbr);
 
-  // Check if SEC conference game - only trust our explicit team list
-  const isConference = bothSEC;
+  // Check for tournament/challenge games via notes - these are NOT conference games
+  // even if both teams are SEC (e.g., Texas vs SC in Players Era Championship)
+  const notes = competition?.notes?.[0]?.headline?.toLowerCase() || "";
+  const isTournamentOrChallenge =
+    notes.includes("championship") ||
+    notes.includes("tournament") ||
+    notes.includes("challenge") ||
+    notes.includes("classic") ||
+    notes.includes("invitational");
+
+  // Check if SEC conference game - both teams must be SEC AND not a tournament/challenge
+  const isConference = bothSEC && !isTournamentOrChallenge;
 
   return {
     id: event.id,
