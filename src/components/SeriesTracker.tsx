@@ -186,11 +186,14 @@ export function SeriesTracker({ games }: SeriesTrackerProps) {
                     <p className="font-semibold text-sm truncate">
                       {series.isHome ? "vs" : "@"} {series.opponent.name}
                     </p>
-                    {allDone && (
-                      <p className="text-xs text-muted-foreground">
-                        Series: {wins > losses ? "Won" : wins < losses ? "Lost" : "Split"} {wins}-{losses}
-                      </p>
-                    )}
+                    <p className="text-xs text-muted-foreground">
+                      {new Date(series.games[0].date).toLocaleDateString("en-US", { month: "short", day: "numeric" })}
+                      {" – "}
+                      {new Date(series.games[series.games.length - 1].date).toLocaleDateString("en-US", { month: "short", day: "numeric" })}
+                      {allDone && (
+                        <> · {wins > losses ? "Won" : wins < losses ? "Lost" : "Split"} {wins}-{losses}</>
+                      )}
+                    </p>
                   </div>
                   {series.games.length > 1 && (
                     <span className="text-xs text-muted-foreground">
