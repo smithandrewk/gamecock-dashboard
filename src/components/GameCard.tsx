@@ -2,7 +2,7 @@
 
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Game, getGameState } from "@/lib/espn";
+import { Game, getGameState, isBaseballSport, formatBaseballStatus } from "@/lib/espn";
 
 interface GameCardProps {
   game: Game;
@@ -43,6 +43,9 @@ function TeamRow({
   rank,
   isWinner,
   isUSC,
+  hits,
+  errors,
+  showRHE,
 }: {
   name: string;
   logo: string;
@@ -50,6 +53,9 @@ function TeamRow({
   rank?: number;
   isWinner?: boolean;
   isUSC?: boolean;
+  hits?: number;
+  errors?: number;
+  showRHE?: boolean;
 }) {
   return (
     <div
@@ -63,7 +69,14 @@ function TeamRow({
         {name}
       </span>
       {score !== undefined && !Number.isNaN(score) && (
-        <span className="font-mono text-lg">{score}</span>
+        <div className="flex items-center gap-2">
+          <span className="font-mono text-lg">{score}</span>
+          {showRHE && hits !== undefined && errors !== undefined && (
+            <span className="text-xs text-muted-foreground font-mono">
+              {hits}H {errors}E
+            </span>
+          )}
+        </div>
       )}
     </div>
   );
@@ -71,6 +84,7 @@ function TeamRow({
 
 export function GameCard({ game, isUSC = false }: GameCardProps) {
   const state = getGameState(game);
+  const isBaseball = isBaseballSport(game);
   const isHomeUSC = game.homeTeam.abbreviation === "SC" || game.homeTeam.displayName.includes("South Carolina");
   const isAwayUSC = game.awayTeam.abbreviation === "SC" || game.awayTeam.displayName.includes("South Carolina");
   const isConference = game.isConference;
@@ -94,7 +108,9 @@ export function GameCard({ game, isUSC = false }: GameCardProps) {
             {state === "final"
               ? "Final"
               : state === "live"
-                ? `${game.status.displayClock} - ${game.status.period}${game.status.period === 1 ? "st" : game.status.period === 2 ? "nd" : "th"}`
+                ? isBaseball
+                  ? formatBaseballStatus(game)
+                  : `${game.status.displayClock} - ${game.status.period}${game.status.period === 1 ? "st" : game.status.period === 2 ? "nd" : "th"}`
                 : formatGameDate(game.date)}
           </span>
           <div className="flex gap-2">
@@ -122,6 +138,9 @@ export function GameCard({ game, isUSC = false }: GameCardProps) {
             rank={game.awayTeam.rank}
             isWinner={awayWon}
             isUSC={isAwayUSC}
+            hits={game.awayHits}
+            errors={game.awayErrors}
+            showRHE={isBaseball && state !== "upcoming"}
           />
           <TeamRow
             name={game.homeTeam.displayName}
@@ -130,6 +149,9 @@ export function GameCard({ game, isUSC = false }: GameCardProps) {
             rank={game.homeTeam.rank}
             isWinner={homeWon}
             isUSC={isHomeUSC}
+            hits={game.homeHits}
+            errors={game.homeErrors}
+            showRHE={isBaseball && state !== "upcoming"}
           />
         </div>
 

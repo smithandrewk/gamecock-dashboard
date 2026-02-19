@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { getTeamData, getScoreboard, Sport, TeamData, Game } from "@/lib/espn";
+import { getTeamData, getScoreboard, getGameSummary, getBaseballStandings, Sport, TeamData, Game, GameSummary } from "@/lib/espn";
 
 // Refresh intervals based on game context
 const REFRESH_INTERVALS = {
@@ -37,5 +37,28 @@ export function useScoreboard(sport: Sport) {
     queryFn: () => getScoreboard(sport),
     refetchInterval: REFRESH_INTERVALS.gameDay,
     staleTime: 60 * 1000,
+  });
+}
+
+export function useGameSummary(eventId: string | undefined) {
+  return useQuery({
+    queryKey: ["gameSummary", eventId],
+    queryFn: () => getGameSummary(eventId!),
+    enabled: !!eventId,
+    refetchInterval: (query) => {
+      // If the game summary exists, it might be live — refresh faster
+      return query.state.data ? REFRESH_INTERVALS.live : REFRESH_INTERVALS.normal;
+    },
+    staleTime: 30 * 1000,
+  });
+}
+
+export function useBaseballStandings(enabled: boolean) {
+  return useQuery({
+    queryKey: ["baseballStandings"],
+    queryFn: getBaseballStandings,
+    enabled,
+    refetchInterval: REFRESH_INTERVALS.normal, // 15 minutes
+    staleTime: 5 * 60 * 1000, // 5 minutes
   });
 }

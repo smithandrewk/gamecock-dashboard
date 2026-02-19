@@ -4,13 +4,15 @@ const ESPN_BASE = "https://site.api.espn.com/apis/site/v2/sports";
 export const USC_TEAM_IDS = {
   mbb: "2579", // Men's Basketball
   wbb: "2579", // Women's Basketball (same ID, different endpoint)
+  baseball: "193", // Baseball (different ID than basketball)
 } as const;
 
-export type Sport = "mbb" | "wbb";
+export type Sport = "mbb" | "wbb" | "baseball";
 
 const SPORT_PATHS: Record<Sport, string> = {
   mbb: "basketball/mens-college-basketball",
   wbb: "basketball/womens-college-basketball",
+  baseball: "baseball/college-baseball",
 };
 
 export interface Team {
@@ -48,6 +50,26 @@ export interface Game {
     spread?: string;
     overUnder?: number;
   };
+  // Baseball-specific fields
+  homeHits?: number;
+  awayHits?: number;
+  homeErrors?: number;
+  awayErrors?: number;
+  sport?: Sport;
+}
+
+export interface LinescoreEntry {
+  inning: number;
+  homeRuns: string;
+  awayRuns: string;
+}
+
+export interface GameSummary {
+  linescore: LinescoreEntry[];
+  homeHits: number;
+  awayHits: number;
+  homeErrors: number;
+  awayErrors: number;
 }
 
 export interface TeamData {
@@ -107,7 +129,7 @@ function parseTeam(teamData: any, isHome: boolean): Team {
   };
 }
 
-function parseGame(event: any): Game {
+function parseGame(event: any, sport?: Sport): Game {
   const competition = event.competitions?.[0];
   const homeCompetitor = competition?.competitors?.find(
     (c: any) => c.homeAway === "home"
@@ -174,7 +196,60 @@ function parseGame(event: any): Game {
           overUnder: odds.overUnder,
         }
       : undefined,
+    // Baseball-specific: extract hits and errors from statistics
+    homeHits: homeCompetitor?.hits !== undefined ? parseInt(String(homeCompetitor.hits), 10) : parseStatistic(homeCompetitor, "hits"),
+    awayHits: awayCompetitor?.hits !== undefined ? parseInt(String(awayCompetitor.hits), 10) : parseStatistic(awayCompetitor, "hits"),
+    homeErrors: homeCompetitor?.errors !== undefined ? parseInt(String(homeCompetitor.errors), 10) : parseStatistic(homeCompetitor, "errors"),
+    awayErrors: awayCompetitor?.errors !== undefined ? parseInt(String(awayCompetitor.errors), 10) : parseStatistic(awayCompetitor, "errors"),
+    sport,
   };
+}
+
+function parseStatistic(competitor: any, statName: string): number | undefined {
+  if (!competitor?.statistics) return undefined;
+  const stat = competitor.statistics.find((s: any) => s.name === statName);
+  if (!stat) return undefined;
+  const val = parseInt(String(stat.displayValue ?? stat.value), 10);
+  return Number.isNaN(val) ? undefined : val;
+}
+
+export async function getGameSummary(eventId: string): Promise<GameSummary | null> {
+  const url = `${ESPN_BASE}/baseball/college-baseball/summary?event=${eventId}`;
+
+  try {
+    const res = await fetch(url);
+    if (!res.ok) return null;
+
+    const data = await res.json();
+    // Try header-based linescore
+    const header = data.header;
+    const competitions = header?.competitions?.[0];
+    const homeComp = competitions?.competitors?.find((c: any) => c.homeAway === "home");
+    const awayComp = competitions?.competitors?.find((c: any) => c.homeAway === "away");
+
+    const linescore: LinescoreEntry[] = [];
+    const homeLS = homeComp?.linescores || [];
+    const awayLS = awayComp?.linescores || [];
+
+    const maxInnings = Math.max(homeLS.length, awayLS.length);
+    for (let i = 0; i < maxInnings; i++) {
+      linescore.push({
+        inning: i + 1,
+        homeRuns: homeLS[i]?.value?.toString() ?? homeLS[i]?.displayValue ?? "-",
+        awayRuns: awayLS[i]?.value?.toString() ?? awayLS[i]?.displayValue ?? "-",
+      });
+    }
+
+    return {
+      linescore,
+      homeHits: parseInt(String(homeComp?.hits ?? 0), 10),
+      awayHits: parseInt(String(awayComp?.hits ?? 0), 10),
+      homeErrors: parseInt(String(homeComp?.errors ?? 0), 10),
+      awayErrors: parseInt(String(awayComp?.errors ?? 0), 10),
+    };
+  } catch {
+    return null;
+  }
 }
 
 export async function getTeamSchedule(sport: Sport): Promise<Game[]> {
@@ -186,7 +261,7 @@ export async function getTeamSchedule(sport: Sport): Promise<Game[]> {
   if (!res.ok) throw new Error(`ESPN API error: ${res.status}`);
 
   const data = await res.json();
-  return (data.events || []).map(parseGame);
+  return (data.events || []).map((e: any) => parseGame(e, sport));
 }
 
 export async function getTeamData(sport: Sport): Promise<TeamData> {
@@ -269,7 +344,7 @@ export async function getScoreboard(sport: Sport): Promise<Game[]> {
   if (!res.ok) throw new Error(`ESPN API error: ${res.status}`);
 
   const data = await res.json();
-  return (data.events || []).map(parseGame);
+  return (data.events || []).map((e: any) => parseGame(e, sport));
 }
 
 export function isUSCGame(game: Game): boolean {
@@ -279,6 +354,95 @@ export function isUSCGame(game: Game): boolean {
     game.homeTeam.displayName.includes("South Carolina") ||
     game.awayTeam.displayName.includes("South Carolina")
   );
+}
+
+export function formatBaseballStatus(game: Game): string {
+  const period = game.status?.period;
+  if (!period) return "";
+
+  // ESPN displayClock for baseball often shows "Top 5th" or "Bot 5th" or "End 5th"
+  const clock = game.status.displayClock;
+  if (clock) {
+    // If ESPN already gives us a formatted string like "Top 5th", use it
+    const lower = clock.toLowerCase();
+    if (lower.includes("top") || lower.includes("bot") || lower.includes("mid") || lower.includes("end")) {
+      return clock;
+    }
+  }
+
+  const suffix = period === 1 ? "st" : period === 2 ? "nd" : period === 3 ? "rd" : "th";
+  return `${period}${suffix}`;
+}
+
+export function isBaseballSport(game: Game): boolean {
+  return game.sport === "baseball";
+}
+
+export interface StandingsEntry {
+  teamId: string;
+  teamName: string;
+  abbreviation: string;
+  logo: string;
+  overall: string;
+  wins: number;
+  losses: number;
+  winPercent: string;
+  streak: string;
+  runDifferential: string;
+}
+
+export async function getBaseballStandings(): Promise<StandingsEntry[]> {
+  const url = "https://site.web.api.espn.com/apis/v2/sports/baseball/college-baseball/standings?level=3";
+
+  const res = await fetch(url);
+  if (!res.ok) throw new Error(`ESPN standings API error: ${res.status}`);
+
+  const data = await res.json();
+
+  // Navigate to SEC: children[0].children -> find SEC (id 27 or name containing "Southeastern")
+  let secEntries: any[] = [];
+  for (const group of data.children || []) {
+    for (const child of group.children || []) {
+      if (child.id === "27" || child.name?.includes("Southeastern")) {
+        secEntries = child.standings?.entries || [];
+        break;
+      }
+    }
+    if (secEntries.length > 0) break;
+  }
+
+  return secEntries.map((entry: any) => {
+    const team = entry.team || {};
+    const stats = entry.stats || [];
+
+    const getStat = (name: string): string => {
+      const stat = stats.find((s: any) => s.name === name || s.abbreviation === name);
+      return stat?.displayValue ?? stat?.value?.toString() ?? "0";
+    };
+    const getStatNum = (name: string): number => {
+      const stat = stats.find((s: any) => s.name === name || s.abbreviation === name);
+      return stat?.value ?? 0;
+    };
+
+    return {
+      teamId: team.id || "",
+      teamName: team.displayName || team.name || "",
+      abbreviation: team.abbreviation || "",
+      logo: team.logos?.[0]?.href || "",
+      overall: `${getStat("wins")}-${getStat("losses")}`,
+      wins: getStatNum("wins"),
+      losses: getStatNum("losses"),
+      winPercent: getStat("winPercent"),
+      streak: getStat("streak"),
+      runDifferential: getStat("pointDifferential"),
+    };
+  }).sort((a, b) => {
+    // Sort by win%, then wins as tiebreaker
+    const wpA = parseFloat(a.winPercent) || 0;
+    const wpB = parseFloat(b.winPercent) || 0;
+    if (wpB !== wpA) return wpB - wpA;
+    return b.wins - a.wins;
+  });
 }
 
 export function getGameState(game: Game): "live" | "upcoming" | "final" {

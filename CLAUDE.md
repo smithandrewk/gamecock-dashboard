@@ -31,11 +31,13 @@ Gray: #58595B
 
 ## Data Sources
 
-| Source | Use | Endpoint Example |
-|--------|-----|------------------|
-| ESPN API | Scores, schedules, stats | `site.api.espn.com/apis/site/v2/sports/basketball/mens-college-basketball/...` |
-| The Odds API | Betting odds | Requires API key |
-| Polymarket | Prediction markets | `docs.polymarket.com` |
+| Source | Use | Status |
+|--------|-----|--------|
+| ESPN API | Scores, schedules, stats | ✅ Working |
+| The Odds API | Betting odds | ❌ Limited coverage for USC games |
+| Polymarket | Prediction markets | Not integrated |
+
+**Note on The Odds API:** As of Dec 2024, this API has very limited coverage for college basketball - only 4 WNCAAB games total, and rarely includes USC games. Do not rely on it for USC-specific odds.
 
 ## Project Structure
 
@@ -71,3 +73,13 @@ src/
 ## Implementation Status
 
 See `plan.md` for full PRD and implementation checklist.
+
+## Lessons Learned
+
+### Always validate external APIs before building integrations
+Before building out a full integration with an external API:
+1. **Test data availability first** - Make a quick API call to verify the data you need actually exists
+2. **Check coverage for your specific use case** - An API might work generally but not have data for your specific team/sport/region
+3. **Don't assume** - Just because an API advertises a feature doesn't mean it has comprehensive coverage
+
+Example: The Odds API advertises college basketball odds, but in practice only has ~4 games at a time for WNCAAB, rarely including USC.

@@ -2,18 +2,21 @@
 
 import { useState } from "react";
 import { Sport } from "@/lib/espn";
-import { useTeamData } from "@/hooks/useTeamData";
+import { useTeamData, useBaseballStandings } from "@/hooks/useTeamData";
 import { SportTabs } from "@/components/SportTabs";
 import { SmartHero } from "@/components/SmartHero";
 import { ScheduleList } from "@/components/ScheduleList";
 import { ResultsList } from "@/components/ResultsList";
 import { StreakChart } from "@/components/StreakChart";
+import { SeriesTracker } from "@/components/SeriesTracker";
+import { SECStandings } from "@/components/SECStandings";
 import { Skeleton } from "@/components/ui/skeleton";
 import Image from "next/image";
 
 export default function Home() {
   const [sport, setSport] = useState<Sport>("wbb");
   const { data, isLoading, error } = useTeamData(sport);
+  const { data: standings, isLoading: standingsLoading } = useBaseballStandings(sport === "baseball");
 
   return (
     <div className="min-h-screen bg-background">
@@ -43,7 +46,7 @@ export default function Home() {
         ) : (
           <>
             <section>
-              <SmartHero data={data} isLoading={isLoading} />
+              <SmartHero data={data} isLoading={isLoading} sport={sport} />
             </section>
 
             {data && (
@@ -59,6 +62,14 @@ export default function Home() {
                     <p className="text-sm text-muted-foreground">Conference</p>
                   </div>
                 </div>
+
+                {sport === "baseball" && (
+                  <SeriesTracker games={data.schedule} />
+                )}
+
+                {sport === "baseball" && (
+                  <SECStandings standings={standings} isLoading={standingsLoading} />
+                )}
 
                 <StreakChart games={data.schedule} />
               </>

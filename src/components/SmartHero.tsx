@@ -4,11 +4,14 @@ import Image from "next/image";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Skeleton } from "@/components/ui/skeleton";
-import { Game, TeamData, getGameState } from "@/lib/espn";
+import { Game, TeamData, GameSummary, Sport, getGameState, formatBaseballStatus, isBaseballSport } from "@/lib/espn";
+import { useGameSummary } from "@/hooks/useTeamData";
+import { BaseballLinescore } from "@/components/BaseballLinescore";
 
 interface SmartHeroProps {
   data?: TeamData;
   isLoading?: boolean;
+  sport?: Sport;
 }
 
 function formatCountdown(dateStr: string): string {
@@ -27,8 +30,12 @@ function formatCountdown(dateStr: string): string {
   return `${minutes}m`;
 }
 
-function LiveGameHero({ game }: { game: Game }) {
-  const isHomeUSC = game.homeTeam.abbreviation === "SC" || game.homeTeam.displayName.includes("South Carolina");
+function LiveGameHero({ game, summary }: { game: Game; summary?: GameSummary | null }) {
+  const isBaseball = isBaseballSport(game);
+
+  const periodDisplay = isBaseball
+    ? formatBaseballStatus(game)
+    : `${game.status.displayClock} - ${game.status.period}${game.status.period === 1 ? "st" : game.status.period === 2 ? "nd" : "th"} Half`;
 
   return (
     <Card className="bg-primary text-primary-foreground">
@@ -38,12 +45,7 @@ function LiveGameHero({ game }: { game: Game }) {
             LIVE
           </Badge>
           <span className="text-sm opacity-80">
-            {game.status.displayClock} - {game.status.period}
-            {game.status.period === 1
-              ? "st"
-              : game.status.period === 2
-                ? "nd"
-                : "th"} Half
+            {periodDisplay}
           </span>
         </div>
 
@@ -58,6 +60,11 @@ function LiveGameHero({ game }: { game: Game }) {
             )}
             <p className="font-semibold truncate">{game.awayTeam.abbreviation}</p>
             <p className="text-3xl font-bold">{game.awayScore ?? 0}</p>
+            {isBaseball && (
+              <p className="text-xs opacity-70 mt-1">
+                H: {game.awayHits ?? 0} &middot; E: {game.awayErrors ?? 0}
+              </p>
+            )}
           </div>
 
           <div className="text-2xl font-light opacity-60">@</div>
@@ -72,6 +79,11 @@ function LiveGameHero({ game }: { game: Game }) {
             )}
             <p className="font-semibold truncate">{game.homeTeam.abbreviation}</p>
             <p className="text-3xl font-bold">{game.homeScore ?? 0}</p>
+            {isBaseball && (
+              <p className="text-xs opacity-70 mt-1">
+                H: {game.homeHits ?? 0} &middot; E: {game.homeErrors ?? 0}
+              </p>
+            )}
           </div>
         </div>
 
@@ -79,6 +91,24 @@ function LiveGameHero({ game }: { game: Game }) {
           <p className="text-center text-sm opacity-80 mt-4">
             Watch on {game.broadcast}
           </p>
+        )}
+
+        {isBaseball && summary && summary.linescore.length > 0 && (
+          <div className="mt-4">
+            <BaseballLinescore
+              linescore={summary.linescore}
+              homeTeamName={game.homeTeam.abbreviation}
+              awayTeamName={game.awayTeam.abbreviation}
+              homeRuns={game.homeScore ?? 0}
+              awayRuns={game.awayScore ?? 0}
+              homeHits={summary.homeHits}
+              awayHits={summary.awayHits}
+              homeErrors={summary.homeErrors}
+              awayErrors={summary.awayErrors}
+              currentInning={game.status.period}
+              isLive={true}
+            />
+          </div>
         )}
       </CardContent>
     </Card>
@@ -171,7 +201,7 @@ function UpcomingGameHero({ game }: { game: Game }) {
   );
 }
 
-function RecentGameHero({ game, record }: { game: Game; record?: string }) {
+function RecentGameHero({ game, record, summary }: { game: Game; record?: string; summary?: GameSummary | null }) {
   const isHomeUSC = game.homeTeam.abbreviation === "SC" || game.homeTeam.displayName.includes("South Carolina");
   const uscScore = isHomeUSC ? game.homeScore : game.awayScore;
   const oppScore = isHomeUSC ? game.awayScore : game.homeScore;
@@ -207,13 +237,35 @@ function RecentGameHero({ game, record }: { game: Game; record?: string }) {
               Season: {record}
             </p>
           )}
+
+          {isBaseballSport(game) && summary && summary.linescore.length > 0 && (
+            <div className="mt-4">
+              <BaseballLinescore
+                linescore={summary.linescore}
+                homeTeamName={game.homeTeam.abbreviation}
+                awayTeamName={game.awayTeam.abbreviation}
+                homeRuns={game.homeScore ?? 0}
+                awayRuns={game.awayScore ?? 0}
+                homeHits={summary.homeHits}
+                awayHits={summary.awayHits}
+                homeErrors={summary.homeErrors}
+                awayErrors={summary.awayErrors}
+              />
+            </div>
+          )}
         </div>
       </CardContent>
     </Card>
   );
 }
 
-export function SmartHero({ data, isLoading }: SmartHeroProps) {
+export function SmartHero({ data, isLoading, sport }: SmartHeroProps) {
+  // Determine which game needs a summary (for baseball linescore)
+  const liveGame = data?.schedule.find((g) => getGameState(g) === "live");
+  const heroGame = liveGame || data?.lastGame;
+  const needsSummary = sport === "baseball" && heroGame && getGameState(heroGame) !== "upcoming";
+  const { data: summary } = useGameSummary(needsSummary ? heroGame?.id : undefined);
+
   if (isLoading) {
     return (
       <Card>
@@ -240,9 +292,8 @@ export function SmartHero({ data, isLoading }: SmartHeroProps) {
   }
 
   // Check for live game first
-  const liveGame = data.schedule.find((g) => getGameState(g) === "live");
   if (liveGame) {
-    return <LiveGameHero game={liveGame} />;
+    return <LiveGameHero game={liveGame} summary={summary} />;
   }
 
   // Then upcoming game
@@ -252,7 +303,7 @@ export function SmartHero({ data, isLoading }: SmartHeroProps) {
 
   // Fall back to most recent game
   if (data.lastGame) {
-    return <RecentGameHero game={data.lastGame} record={data.record.overall} />;
+    return <RecentGameHero game={data.lastGame} record={data.record.overall} summary={summary} />;
   }
 
   return (
