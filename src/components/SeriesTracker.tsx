@@ -117,7 +117,7 @@ function GameDot({ game }: { game: Game }) {
 }
 
 export function SeriesTracker({ games }: SeriesTrackerProps) {
-  const allSeries = groupIntoSeries(games);
+  const allSeries = groupIntoSeries(games).filter((s) => s.games.length > 1);
 
   // Find the current/next series: first one with an upcoming or live game
   const relevantSeries = allSeries.filter((s) =>
