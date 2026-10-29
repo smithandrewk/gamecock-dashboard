@@ -19,10 +19,10 @@ interface HeaderProps {
   onNotify: () => void;
 }
 
-/** Compact top bar: brand on the left, install + alerts on the right. Sits under the status bar. */
+/** Compact top bar: brand on the left, install + alerts on the right. The shell pads it below the status bar. */
 export function AppHeader({ showInstall, subscribed, onInstall, onNotify }: HeaderProps) {
   return (
-    <header className="pt-safe sticky top-0 z-40 border-b border-white/[0.06] bg-black">
+    <header className="z-40 flex-none border-b border-white/[0.06] bg-black">
       <div className="mx-auto flex h-12 max-w-lg items-center gap-2 px-4">
         <Image src="/gamecock.svg" alt="" width={20} height={22} className="pixelated" priority />
         <span className="text-[17px] font-semibold tracking-tight">Gamecock AI</span>
@@ -88,7 +88,7 @@ function SportIcon({ sport, className }: { sport: AppSport; className?: string }
 export function SportTabBar({ value, onChange }: { value: AppSport; onChange: (s: AppSport) => void }) {
   return (
     <nav
-      className="pb-safe fixed inset-x-0 bottom-0 z-40 border-t border-white/[0.08] bg-black"
+      className="pb-safe z-40 flex-none border-t border-white/[0.08] bg-black"
       aria-label="Sports"
     >
       <div className="mx-auto grid max-w-lg grid-cols-4" role="tablist">
