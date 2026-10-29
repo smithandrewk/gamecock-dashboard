@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any -- raw ESPN JSON is untyped; parsed into typed models below */
 // In the browser, ESPN calls go through our own API route (src/app/api/espn)
 // because ESPN dropped CORS headers on some endpoints. On the server (route
 // handlers, the notification cron) we call ESPN directly.
@@ -5,7 +6,32 @@ const isBrowser = typeof window !== "undefined";
 const ESPN_BASE = isBrowser ? "/api/espn/site" : "https://site.api.espn.com/apis/site/v2/sports";
 const ESPN_WEB_BASE = isBrowser ? "/api/espn/web" : "https://site.web.api.espn.com/apis/v2/sports";
 
-// USC team IDs
+/** GET an ESPN site-API path (e.g. "football/college-football/teams/2579"), via the proxy in the browser. */
+export async function espnFetch(path: string): Promise<any> {
+  const res = await fetch(`${ESPN_BASE}/${path}`);
+  if (!res.ok) throw new Error(`ESPN API error: ${res.status}`);
+  return res.json();
+}
+
+/**
+ * ESPN marks unannounced kickoff/tip times with timeValid=false, a "TBD" status detail,
+ * and a placeholder 05:00Z timestamp. Any of those means "time TBD", never "1:00 AM".
+ */
+export function isTimeTBD(date: string | undefined, detail?: string, timeValid?: boolean): boolean {
+  if (timeValid === false) return true;
+  if (detail && /\bTBD\b|\bTBA\b/i.test(detail)) return true;
+  return !!date && /T05:00(:00)?(\.000)?Z$/.test(date);
+}
+
+/** Prefer ESPN's dark-background logo variant (the app is dark). */
+export function pickLogo(team: any): string {
+  const logos: any[] = team?.logos ?? [];
+  const dark = logos.find((l) => Array.isArray(l.rel) && l.rel.includes("dark"));
+  const href: string = dark?.href ?? team?.logo ?? logos[0]?.href ?? "";
+  return href;
+}
+
+// South Carolina team IDs (ESPN)
 export const USC_TEAM_IDS = {
   mbb: "2579", // Men's Basketball
   wbb: "2579", // Women's Basketball (same ID, different endpoint)
@@ -13,6 +39,8 @@ export const USC_TEAM_IDS = {
 } as const;
 
 export type Sport = "mbb" | "wbb" | "baseball";
+/** Tabs in the app, in display order. */
+export type AppSport = "football" | "wbb" | "mbb" | "baseball";
 
 const SPORT_PATHS: Record<Sport, string> = {
   mbb: "basketball/mens-college-basketball",
@@ -27,12 +55,15 @@ export interface Team {
   displayName: string;
   logo: string;
   record?: string;
+  confRecord?: string;
   rank?: number;
 }
 
 export interface Game {
   id: string;
   date: string;
+  /** Kickoff/tip time not announced yet */
+  timeTBD: boolean;
   name: string;
   status: {
     type: {
@@ -40,6 +71,7 @@ export interface Game {
       name: string;
       state: "pre" | "in" | "post";
       completed: boolean;
+      detail?: string;
     };
     displayClock?: string;
     period?: number;
@@ -49,7 +81,12 @@ export interface Game {
   homeScore?: number;
   awayScore?: number;
   venue?: string;
+  /** "Paris, France", "Columbia, SC" */
+  venueCity?: string;
+  neutral?: boolean;
   broadcast?: string;
+  /** Event / tournament name from ESPN notes, e.g. "SEC Tournament - First Round" */
+  note?: string;
   isConference?: boolean;
   odds?: {
     spread?: string;
@@ -79,10 +116,15 @@ export interface GameSummary {
 
 export interface TeamData {
   team: Team;
+  /** Undefined when ESPN has no record (e.g. before the season) — never shown as "0-0". */
   record: {
-    overall: string;
-    conference: string;
+    overall?: string;
+    conference?: string;
   };
+  /** ESPN's season label for this schedule, e.g. "2025-26" */
+  seasonLabel?: string;
+  /** Calendar year the season ends in (ESPN season.year) */
+  seasonYear?: number;
   nextGame?: Game;
   lastGame?: Game;
   schedule: Game[];
@@ -117,7 +159,7 @@ function parseScore(competitor: any): number | undefined {
   return Number.isNaN(parsed) ? undefined : parsed;
 }
 
-function parseTeam(teamData: any, isHome: boolean): Team {
+function parseTeam(teamData: any): Team {
   const team = teamData.team || teamData;
   const rawRank = teamData.curatedRank?.current;
   // ESPN returns 99 for unranked teams - only show actual top 25 rankings
@@ -125,11 +167,13 @@ function parseTeam(teamData: any, isHome: boolean): Team {
 
   return {
     id: team.id,
-    name: team.name || team.shortDisplayName,
+    // "USC" alone is the Trojans' ESPN short name; spell it out so it never reads as South Carolina.
+    name: (team.shortDisplayName || team.name) === "USC" ? "USC Trojans" : team.shortDisplayName || team.name,
     abbreviation: team.abbreviation,
     displayName: team.displayName,
-    logo: team.logo || team.logos?.[0]?.href || "",
-    record: teamData.records?.[0]?.summary,
+    logo: pickLogo(team),
+    record: teamData.records?.[0]?.summary ?? teamData.record?.find?.((r: any) => r.type === "total")?.displayValue,
+    confRecord: teamData.record?.find?.((r: any) => r.type === "vsconf")?.displayValue,
     rank,
   };
 }
@@ -143,10 +187,16 @@ function parseGame(event: any, sport?: Sport): Game {
     (c: any) => c.homeAway === "away"
   );
 
+  // Schedule events carry status on the competition; scoreboard events on the event.
+  const status = event.status ?? competition?.status ?? {};
   const odds = competition?.odds?.[0];
+  // Scoreboard events carry broadcasts[].names; schedule events carry broadcasts[].media.shortName.
   const broadcast =
     competition?.broadcasts?.[0]?.names?.[0] ||
+    competition?.broadcasts?.[0]?.media?.shortName ||
     competition?.geoBroadcasts?.[0]?.media?.shortName;
+  const vCity = competition?.venue?.address?.city;
+  const vState = competition?.venue?.address?.state;
 
   // SEC team abbreviations for conference detection
   // ESPN uses different abbreviations across endpoints, so include all variants
@@ -177,23 +227,28 @@ function parseGame(event: any, sport?: Sport): Game {
   return {
     id: event.id,
     date: event.date,
+    timeTBD: isTimeTBD(event.date, status.type?.detail, event.timeValid ?? competition?.timeValid),
     name: event.name,
     status: {
       type: {
-        id: event.status?.type?.id,
-        name: event.status?.type?.name,
-        state: event.status?.type?.state,
-        completed: event.status?.type?.completed,
+        id: status.type?.id,
+        name: status.type?.name,
+        state: status.type?.state,
+        completed: status.type?.completed,
+        detail: status.type?.detail,
       },
-      displayClock: event.status?.displayClock,
-      period: event.status?.period,
+      displayClock: status.displayClock,
+      period: status.period,
     },
-    homeTeam: parseTeam(homeCompetitor, true),
-    awayTeam: parseTeam(awayCompetitor, false),
+    homeTeam: parseTeam(homeCompetitor),
+    awayTeam: parseTeam(awayCompetitor),
     homeScore: parseScore(homeCompetitor),
     awayScore: parseScore(awayCompetitor),
     venue: competition?.venue?.fullName,
+    venueCity: vCity ? [vCity, vState].filter(Boolean).join(", ") : undefined,
+    neutral: !!competition?.neutralSite,
     broadcast,
+    note: competition?.notes?.[0]?.headline || undefined,
     isConference: isConference || false,
     odds: odds
       ? {
@@ -257,72 +312,87 @@ export async function getGameSummary(eventId: string): Promise<GameSummary | nul
   }
 }
 
-export async function getTeamSchedule(sport: Sport): Promise<Game[]> {
+/** "Adidas Arena · Paris, France"; skips the city when the venue name already has it. */
+export function gameVenueLine(g: Pick<Game, "venue" | "venueCity">): string | undefined {
+  if (!g.venue) return g.venueCity;
+  const city = g.venueCity?.split(",")[0]?.trim();
+  return city && !g.venue.includes(city) ? `${g.venue} · ${g.venueCity}` : g.venue;
+}
+
+export function isSCTeam(team: Team): boolean {
+  return team.abbreviation === "SC" || team.displayName?.includes("South Carolina");
+}
+
+/** South Carolina's side of a game, plus the result once it's final. */
+export function scView(game: Game) {
+  const scHome = isSCTeam(game.homeTeam);
+  const sc = scHome ? game.homeTeam : game.awayTeam;
+  const opp = scHome ? game.awayTeam : game.homeTeam;
+  const scScore = scHome ? game.homeScore : game.awayScore;
+  const oppScore = scHome ? game.awayScore : game.homeScore;
+  let result: "W" | "L" | "T" | undefined;
+  if (getGameState(game) === "final" && scScore !== undefined && oppScore !== undefined) {
+    result = scScore > oppScore ? "W" : scScore < oppScore ? "L" : "T";
+  }
+  return { scHome, sc, opp, scScore, oppScore, result };
+}
+
+async function getTeamSchedule(sport: Sport): Promise<{ games: Game[]; season?: any }> {
   const path = SPORT_PATHS[sport];
   const teamId = USC_TEAM_IDS[sport];
   // seasontype=2 (regular season) is required: without it ESPN returns zero
   // events for MBB before the season tips off.
-  const url = `${ESPN_BASE}/${path}/teams/${teamId}/schedule?seasontype=2`;
-
-  const res = await fetch(url);
-  if (!res.ok) throw new Error(`ESPN API error: ${res.status}`);
-
-  const data = await res.json();
-  return (data.events || []).map((e: any) => parseGame(e, sport));
+  const data = await espnFetch(`${path}/teams/${teamId}/schedule?seasontype=2`);
+  return {
+    games: (data.events || []).map((e: any) => parseGame(e, sport)),
+    season: data.requestedSeason ?? data.season,
+  };
 }
 
 export async function getTeamData(sport: Sport): Promise<TeamData> {
   const path = SPORT_PATHS[sport];
   const teamId = USC_TEAM_IDS[sport];
-  const url = `${ESPN_BASE}/${path}/teams/${teamId}`;
 
-  const res = await fetch(url);
-  if (!res.ok) throw new Error(`ESPN API error: ${res.status}`);
-
-  const data = await res.json();
+  const [data, { games: schedule, season }] = await Promise.all([
+    espnFetch(`${path}/teams/${teamId}`),
+    getTeamSchedule(sport),
+  ]);
   const team = data.team;
-
-  const schedule = await getTeamSchedule(sport);
-  const now = new Date();
 
   const sortedSchedule = [...schedule].sort(
     (a, b) => new Date(a.date).getTime() - new Date(b.date).getTime()
   );
 
-  const pastGames = sortedSchedule.filter(
-    (g) => getGameState(g) === "final"
-  );
-  const futureGames = sortedSchedule.filter(
-    (g) => getGameState(g) === "upcoming"
-  );
+  const pastGames = sortedSchedule.filter((g) => getGameState(g) === "final");
+  const futureGames = sortedSchedule.filter((g) => getGameState(g) === "upcoming");
   const liveGames = sortedSchedule.filter((g) => getGameState(g) === "live");
+  const lastGame = pastGames[pastGames.length - 1];
 
-  // Calculate conference record from games if API doesn't provide it
-  const apiConfRecord = team.record?.items?.find((r: any) => r.type === "vsconf")?.summary;
-
-  let confRecord = apiConfRecord;
-  if (!apiConfRecord || apiConfRecord === "0-0") {
-    // Calculate from schedule
-    let confWins = 0;
-    let confLosses = 0;
-
-    for (const game of pastGames) {
-      if (game.isConference) {
-        const isHomeUSC = game.homeTeam.abbreviation === "SC" ||
-          game.homeTeam.displayName.includes("South Carolina");
-        const uscScore = isHomeUSC ? game.homeScore : game.awayScore;
-        const oppScore = isHomeUSC ? game.awayScore : game.homeScore;
-
-        if (uscScore !== undefined && oppScore !== undefined) {
-          if (uscScore > oppScore) confWins++;
-          else confLosses++;
-        }
-      }
+  const items: any[] = team.record?.items ?? [];
+  let overall: string | undefined =
+    items.find((r) => r.type === "total")?.summary ?? items[0]?.summary;
+  // Conference record: ESPN's own vsconf (team record, else SC's competitor record on
+  // the latest final game); count SEC results from the schedule only as a last resort.
+  let conference: string | undefined =
+    items.find((r) => r.type === "vsconf")?.summary ??
+    (lastGame ? scView(lastGame).sc.confRecord : undefined);
+  if (!conference) {
+    const conf = pastGames.filter((g) => g.isConference && scView(g).result);
+    if (conf.length) {
+      const w = conf.filter((g) => scView(g).result === "W").length;
+      conference = `${w}-${conf.length - w}`;
     }
-
-    if (confWins > 0 || confLosses > 0) {
-      confRecord = `${confWins}-${confLosses}`;
+  }
+  if (!overall && pastGames.length) {
+    const results = pastGames.map((g) => scView(g).result).filter(Boolean);
+    if (results.length) {
+      overall = `${results.filter((r) => r === "W").length}-${results.filter((r) => r === "L").length}`;
     }
+  }
+  // Before the first game ESPN may say "0-0"; with nothing played that's "no record yet".
+  if (!pastGames.length && !liveGames.length) {
+    overall = undefined;
+    conference = undefined;
   }
 
   return {
@@ -331,36 +401,15 @@ export async function getTeamData(sport: Sport): Promise<TeamData> {
       name: team.name,
       abbreviation: team.abbreviation,
       displayName: team.displayName,
-      logo: team.logos?.[0]?.href || "",
+      logo: pickLogo(team),
     },
-    record: {
-      overall: team.record?.items?.[0]?.summary || "0-0",
-      conference: confRecord || "0-0",
-    },
+    record: { overall, conference },
+    seasonLabel: season?.displayName,
+    seasonYear: season?.year,
     nextGame: liveGames[0] || futureGames[0],
-    lastGame: pastGames[pastGames.length - 1],
+    lastGame,
     schedule: sortedSchedule,
   };
-}
-
-export async function getScoreboard(sport: Sport): Promise<Game[]> {
-  const path = SPORT_PATHS[sport];
-  const url = `${ESPN_BASE}/${path}/scoreboard`;
-
-  const res = await fetch(url);
-  if (!res.ok) throw new Error(`ESPN API error: ${res.status}`);
-
-  const data = await res.json();
-  return (data.events || []).map((e: any) => parseGame(e, sport));
-}
-
-export function isUSCGame(game: Game): boolean {
-  return (
-    game.homeTeam.abbreviation === "SC" ||
-    game.awayTeam.abbreviation === "SC" ||
-    game.homeTeam.displayName.includes("South Carolina") ||
-    game.awayTeam.displayName.includes("South Carolina")
-  );
 }
 
 export function formatBaseballStatus(game: Game): string {
@@ -388,68 +437,77 @@ export function isBaseballSport(game: Game): boolean {
 export interface StandingsEntry {
   teamId: string;
   teamName: string;
+  /** "South Carolina", "Ole Miss" */
+  shortName: string;
   abbreviation: string;
   logo: string;
   overall: string;
   wins: number;
   losses: number;
   winPercent: string;
+  /** Conference win percentage, e.g. ".233" */
+  confWinPercent: string;
   streak: string;
-  runDifferential: string;
 }
 
-export async function getBaseballStandings(): Promise<StandingsEntry[]> {
-  const url = `${ESPN_WEB_BASE}/baseball/college-baseball/standings?level=3`;
+export interface Standings {
+  /** ESPN season year the table is for (it defaults to an OLD season unless asked) */
+  season?: number;
+  seasonLabel?: string;
+  entries: StandingsEntry[];
+}
+
+/** SEC baseball standings for `season` (ESPN season year). Sorted by conference win %. */
+export async function getBaseballStandings(season?: number): Promise<Standings> {
+  const url = `${ESPN_WEB_BASE}/baseball/college-baseball/standings?level=3${season ? `&season=${season}` : ""}`;
 
   const res = await fetch(url);
   if (!res.ok) throw new Error(`ESPN standings API error: ${res.status}`);
 
   const data = await res.json();
 
-  // Navigate to SEC: children[0].children -> find SEC (id 27 or name containing "Southeastern")
-  let secEntries: any[] = [];
+  let sec: any = null;
   for (const group of data.children || []) {
     for (const child of group.children || []) {
       if (child.id === "27" || child.name?.includes("Southeastern")) {
-        secEntries = child.standings?.entries || [];
+        sec = child.standings;
         break;
       }
     }
-    if (secEntries.length > 0) break;
+    if (sec) break;
   }
 
-  return secEntries.map((entry: any) => {
+  const entries: StandingsEntry[] = (sec?.entries || []).map((entry: any) => {
     const team = entry.team || {};
-    const stats = entry.stats || [];
-
-    const getStat = (name: string): string => {
-      const stat = stats.find((s: any) => s.name === name || s.abbreviation === name);
-      return stat?.displayValue ?? stat?.value?.toString() ?? "0";
-    };
-    const getStatNum = (name: string): number => {
-      const stat = stats.find((s: any) => s.name === name || s.abbreviation === name);
-      return stat?.value ?? 0;
-    };
+    const stats: any[] = entry.stats || [];
+    const stat = (name: string) => stats.find((s) => s.name === name);
+    const str = (name: string) => stat(name)?.displayValue ?? "";
+    const n = (name: string) => (typeof stat(name)?.value === "number" ? stat(name).value : NaN);
+    const wins = n("wins");
+    const losses = n("losses");
+    const lp = n("leagueWinPercent");
 
     return {
       teamId: team.id || "",
       teamName: team.displayName || team.name || "",
+      shortName: team.shortDisplayName || team.location || team.displayName || "",
       abbreviation: team.abbreviation || "",
-      logo: team.logos?.[0]?.href || "",
-      overall: `${getStat("wins")}-${getStat("losses")}`,
-      wins: getStatNum("wins"),
-      losses: getStatNum("losses"),
-      winPercent: getStat("winPercent"),
-      streak: getStat("streak"),
-      runDifferential: getStat("pointDifferential"),
+      logo: pickLogo(team),
+      overall: Number.isFinite(wins) && Number.isFinite(losses) ? `${wins}-${losses}` : str("overall"),
+      wins,
+      losses,
+      winPercent: str("winPercent"),
+      confWinPercent: Number.isFinite(lp) ? lp.toFixed(3).replace(/^0/, "") : "",
+      streak: str("streak"),
     };
-  }).sort((a, b) => {
-    // Sort by win%, then wins as tiebreaker
-    const wpA = parseFloat(a.winPercent) || 0;
-    const wpB = parseFloat(b.winPercent) || 0;
-    if (wpB !== wpA) return wpB - wpA;
-    return b.wins - a.wins;
   });
+  entries.sort((a, b) => {
+    const ca = parseFloat(a.confWinPercent) || 0;
+    const cb = parseFloat(b.confWinPercent) || 0;
+    if (cb !== ca) return cb - ca;
+    return (b.wins || 0) - (a.wins || 0);
+  });
+  return { season: sec?.season, seasonLabel: sec?.seasonDisplayName, entries };
 }
 
 export function getGameState(game: Game): "live" | "upcoming" | "final" {

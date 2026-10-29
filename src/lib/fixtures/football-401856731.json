@@ -1,0 +1,1122 @@
+{
+ "_source": "ESPN site API summary?event=401856731 (Tennessee at South Carolina, 2026-10-24), fetched 2026-10-29, trimmed to the fields the app reads. Used only for ?demo= review states.",
+ "header": {
+  "id": "401856731",
+  "timeValid": true,
+  "week": 8,
+  "season": {
+   "year": 2026,
+   "current": true,
+   "type": 2
+  },
+  "competitions": [
+   {
+    "id": "401856731",
+    "date": "2026-10-24T19:30Z",
+    "neutralSite": false,
+    "conferenceCompetition": true,
+    "status": {
+     "type": {
+      "id": "3",
+      "name": "STATUS_FINAL",
+      "state": "post",
+      "completed": true,
+      "description": "Final",
+      "detail": "Final",
+      "shortDetail": "Final"
+     }
+    },
+    "broadcasts": [
+     {
+      "media": {
+       "shortName": "ESPN"
+      }
+     },
+     {
+      "media": {
+       "shortName": "Disney+"
+      }
+     }
+    ],
+    "competitors": [
+     {
+      "id": "2579",
+      "homeAway": "home",
+      "winner": true,
+      "score": "27",
+      "linescores": [
+       {
+        "displayValue": "14"
+       },
+       {
+        "displayValue": "3"
+       },
+       {
+        "displayValue": "0"
+       },
+       {
+        "displayValue": "10"
+       }
+      ],
+      "record": [
+       {
+        "type": "total",
+        "summary": "4-3",
+        "displayValue": "4-3"
+       },
+       {
+        "type": "home",
+        "summary": "3-2",
+        "displayValue": "3-2"
+       },
+       {
+        "type": "vsconf",
+        "summary": "2-3",
+        "displayValue": "2-3"
+       }
+      ],
+      "possession": false,
+      "team": {
+       "id": "2579",
+       "location": "South Carolina",
+       "name": "Gamecocks",
+       "abbreviation": "SC",
+       "displayName": "South Carolina Gamecocks",
+       "logos": [
+        {
+         "href": "https://a.espncdn.com/i/teamlogos/ncaa/500/2579.png",
+         "rel": [
+          "full",
+          "default"
+         ]
+        },
+        {
+         "href": "https://a.espncdn.com/i/teamlogos/ncaa/500-dark/2579.png",
+         "rel": [
+          "full",
+          "dark"
+         ]
+        }
+       ]
+      }
+     },
+     {
+      "id": "2633",
+      "homeAway": "away",
+      "winner": false,
+      "score": "24",
+      "linescores": [
+       {
+        "displayValue": "0"
+       },
+       {
+        "displayValue": "21"
+       },
+       {
+        "displayValue": "0"
+       },
+       {
+        "displayValue": "3"
+       }
+      ],
+      "record": [
+       {
+        "type": "total",
+        "summary": "6-2",
+        "displayValue": "6-2"
+       },
+       {
+        "type": "road",
+        "summary": "2-1",
+        "displayValue": "2-1"
+       },
+       {
+        "type": "vsconf",
+        "summary": "3-2",
+        "displayValue": "3-2"
+       }
+      ],
+      "possession": false,
+      "rank": 11,
+      "team": {
+       "id": "2633",
+       "location": "Tennessee",
+       "name": "Volunteers",
+       "abbreviation": "TENN",
+       "displayName": "Tennessee Volunteers",
+       "logos": [
+        {
+         "href": "https://a.espncdn.com/i/teamlogos/ncaa/500/2633.png",
+         "rel": [
+          "full",
+          "default"
+         ]
+        },
+        {
+         "href": "https://a.espncdn.com/i/teamlogos/ncaa/500-dark/2633.png",
+         "rel": [
+          "full",
+          "dark"
+         ]
+        }
+       ]
+      }
+     }
+    ]
+   }
+  ]
+ },
+ "gameInfo": {
+  "venue": {
+   "fullName": "Williams-Brice Stadium",
+   "address": {
+    "city": "Columbia",
+    "state": "SC"
+   }
+  },
+  "attendance": 79193
+ },
+ "pickcenter": [
+  {
+   "provider": {
+    "id": "100",
+    "name": "DraftKings",
+    "priority": 1,
+    "logos": [
+     {
+      "href": "https://a.espncdn.com/i/betting/Draftkings_Light.svg",
+      "rel": [
+       "light"
+      ]
+     },
+     {
+      "href": "https://a.espncdn.com/i/betting/Draftkings_Dark.svg",
+      "rel": [
+       "dark"
+      ]
+     }
+    ]
+   },
+   "details": "SC -2.5",
+   "overUnder": 50.5,
+   "spread": -2.5
+  }
+ ],
+ "scoringPlays": [
+  {
+   "id": "40185673164",
+   "type": {
+    "id": "67",
+    "text": "Passing Touchdown",
+    "abbreviation": "TD"
+   },
+   "text": "Mazeo Bennett Jr. 17 Yd pass from LaNorris Sellers (Malik Orsan Kick)",
+   "awayScore": 0,
+   "homeScore": 7,
+   "period": {
+    "number": 1
+   },
+   "clock": {
+    "displayValue": "10:02"
+   },
+   "team": {
+    "id": "2579",
+    "abbreviation": "SC"
+   },
+   "scoringType": {
+    "name": "touchdown",
+    "displayName": "Touchdown",
+    "abbreviation": "TD"
+   }
+  },
+  {
+   "id": "401856731102",
+   "type": {
+    "id": "68",
+    "text": "Rushing Touchdown",
+    "abbreviation": "TD"
+   },
+   "text": "LaNorris Sellers 31 Yd Run (Malik Orsan Kick)",
+   "awayScore": 0,
+   "homeScore": 14,
+   "period": {
+    "number": 1
+   },
+   "clock": {
+    "displayValue": "8:17"
+   },
+   "team": {
+    "id": "2579",
+    "abbreviation": "SC"
+   },
+   "scoringType": {
+    "name": "touchdown",
+    "displayName": "Touchdown",
+    "abbreviation": "TD"
+   }
+  },
+  {
+   "id": "401856731203",
+   "type": {
+    "id": "68",
+    "text": "Rushing Touchdown",
+    "abbreviation": "TD"
+   },
+   "text": "DeSean Bishop 1 Yd Run (Cooper Ranvier Kick)",
+   "awayScore": 7,
+   "homeScore": 14,
+   "period": {
+    "number": 2
+   },
+   "clock": {
+    "displayValue": "14:12"
+   },
+   "team": {
+    "id": "2633",
+    "abbreviation": "TENN"
+   },
+   "scoringType": {
+    "name": "touchdown",
+    "displayName": "Touchdown",
+    "abbreviation": "TD"
+   }
+  },
+  {
+   "id": "401856731264",
+   "type": {
+    "id": "68",
+    "text": "Rushing Touchdown",
+    "abbreviation": "TD"
+   },
+   "text": "DaSaahn Brame 1 Yd Run (Cooper Ranvier Kick)",
+   "awayScore": 14,
+   "homeScore": 14,
+   "period": {
+    "number": 2
+   },
+   "clock": {
+    "displayValue": "8:06"
+   },
+   "team": {
+    "id": "2633",
+    "abbreviation": "TENN"
+   },
+   "scoringType": {
+    "name": "touchdown",
+    "displayName": "Touchdown",
+    "abbreviation": "TD"
+   }
+  },
+  {
+   "id": "401856731350",
+   "type": {
+    "id": "59",
+    "text": "Field Goal Good",
+    "abbreviation": "FG"
+   },
+   "text": "Malik Orsan 22 Yd Field Goal  ",
+   "awayScore": 14,
+   "homeScore": 17,
+   "period": {
+    "number": 2
+   },
+   "clock": {
+    "displayValue": "1:44"
+   },
+   "team": {
+    "id": "2579",
+    "abbreviation": "SC"
+   },
+   "scoringType": {
+    "name": "field-goal",
+    "displayName": "Field Goal",
+    "abbreviation": "FG"
+   }
+  },
+  {
+   "id": "401856731384",
+   "type": {
+    "id": "68",
+    "text": "Rushing Touchdown",
+    "abbreviation": "TD"
+   },
+   "text": "Mike Matthews 8 Yd Run (Cooper Ranvier Kick)",
+   "awayScore": 21,
+   "homeScore": 17,
+   "period": {
+    "number": 2
+   },
+   "clock": {
+    "displayValue": "0:24"
+   },
+   "team": {
+    "id": "2633",
+    "abbreviation": "TENN"
+   },
+   "scoringType": {
+    "name": "touchdown",
+    "displayName": "Touchdown",
+    "abbreviation": "TD"
+   }
+  },
+  {
+   "id": "401856731640",
+   "type": {
+    "id": "59",
+    "text": "Field Goal Good",
+    "abbreviation": "FG"
+   },
+   "text": "Cooper Ranvier 37 Yd Field Goal  ",
+   "awayScore": 24,
+   "homeScore": 17,
+   "period": {
+    "number": 4
+   },
+   "clock": {
+    "displayValue": "11:46"
+   },
+   "team": {
+    "id": "2633",
+    "abbreviation": "TENN"
+   },
+   "scoringType": {
+    "name": "field-goal",
+    "displayName": "Field Goal",
+    "abbreviation": "FG"
+   }
+  },
+  {
+   "id": "401856731766",
+   "type": {
+    "id": "68",
+    "text": "Rushing Touchdown",
+    "abbreviation": "TD"
+   },
+   "text": "LaNorris Sellers 4 Yd Run (Malik Orsan Kick)",
+   "awayScore": 24,
+   "homeScore": 24,
+   "period": {
+    "number": 4
+   },
+   "clock": {
+    "displayValue": "1:17"
+   },
+   "team": {
+    "id": "2579",
+    "abbreviation": "SC"
+   },
+   "scoringType": {
+    "name": "touchdown",
+    "displayName": "Touchdown",
+    "abbreviation": "TD"
+   }
+  },
+  {
+   "id": "401856731823",
+   "type": {
+    "id": "59",
+    "text": "Field Goal Good",
+    "abbreviation": "FG"
+   },
+   "text": "Malik Orsan 48 Yd Field Goal ",
+   "awayScore": 24,
+   "homeScore": 27,
+   "period": {
+    "number": 4
+   },
+   "clock": {
+    "displayValue": "0:00"
+   },
+   "team": {
+    "id": "2579",
+    "abbreviation": "SC"
+   },
+   "scoringType": {
+    "name": "field-goal",
+    "displayName": "Field Goal",
+    "abbreviation": "FG"
+   }
+  }
+ ],
+ "boxscore": {
+  "teams": [
+   {
+    "team": {
+     "id": "2633",
+     "location": "Tennessee",
+     "name": "Volunteers",
+     "abbreviation": "TENN",
+     "displayName": "Tennessee Volunteers",
+     "shortDisplayName": "Tennessee",
+     "logo": "https://a.espncdn.com/i/teamlogos/ncaa/500/2633.png"
+    },
+    "homeAway": "away",
+    "statistics": [
+     {
+      "name": "firstDowns",
+      "displayValue": "21",
+      "label": "1st Downs"
+     },
+     {
+      "name": "thirdDownEff",
+      "displayValue": "6-15",
+      "label": "3rd down efficiency"
+     },
+     {
+      "name": "fourthDownEff",
+      "displayValue": "3-4",
+      "label": "4th down efficiency"
+     },
+     {
+      "name": "totalYards",
+      "displayValue": "320",
+      "label": "Total Yards"
+     },
+     {
+      "name": "netPassingYards",
+      "displayValue": "136",
+      "label": "Passing"
+     },
+     {
+      "name": "completionAttempts",
+      "displayValue": "16/23",
+      "label": "Comp/Att"
+     },
+     {
+      "name": "yardsPerPass",
+      "displayValue": "5.9",
+      "label": "Yards per pass"
+     },
+     {
+      "name": "rushingYards",
+      "displayValue": "184",
+      "label": "Rushing"
+     },
+     {
+      "name": "rushingAttempts",
+      "displayValue": "50",
+      "label": "Rushing Attempts"
+     },
+     {
+      "name": "yardsPerRushAttempt",
+      "displayValue": "3.7",
+      "label": "Yards per rush"
+     },
+     {
+      "name": "totalPenaltiesYards",
+      "displayValue": "12-90",
+      "label": "Penalties"
+     },
+     {
+      "name": "turnovers",
+      "displayValue": "1",
+      "label": "Turnovers"
+     },
+     {
+      "name": "fumblesLost",
+      "displayValue": "1",
+      "label": "Fumbles lost"
+     },
+     {
+      "name": "interceptions",
+      "displayValue": "0",
+      "label": "Interceptions thrown"
+     },
+     {
+      "name": "possessionTime",
+      "displayValue": "34:12",
+      "label": "Possession"
+     }
+    ]
+   },
+   {
+    "team": {
+     "id": "2579",
+     "location": "South Carolina",
+     "name": "Gamecocks",
+     "abbreviation": "SC",
+     "displayName": "South Carolina Gamecocks",
+     "shortDisplayName": "South Carolina",
+     "logo": "https://a.espncdn.com/i/teamlogos/ncaa/500/2579.png"
+    },
+    "homeAway": "home",
+    "statistics": [
+     {
+      "name": "firstDowns",
+      "displayValue": "21",
+      "label": "1st Downs"
+     },
+     {
+      "name": "thirdDownEff",
+      "displayValue": "5-13",
+      "label": "3rd down efficiency"
+     },
+     {
+      "name": "fourthDownEff",
+      "displayValue": "2-3",
+      "label": "4th down efficiency"
+     },
+     {
+      "name": "totalYards",
+      "displayValue": "344",
+      "label": "Total Yards"
+     },
+     {
+      "name": "netPassingYards",
+      "displayValue": "210",
+      "label": "Passing"
+     },
+     {
+      "name": "completionAttempts",
+      "displayValue": "18/32",
+      "label": "Comp/Att"
+     },
+     {
+      "name": "yardsPerPass",
+      "displayValue": "6.6",
+      "label": "Yards per pass"
+     },
+     {
+      "name": "rushingYards",
+      "displayValue": "134",
+      "label": "Rushing"
+     },
+     {
+      "name": "rushingAttempts",
+      "displayValue": "31",
+      "label": "Rushing Attempts"
+     },
+     {
+      "name": "yardsPerRushAttempt",
+      "displayValue": "4.3",
+      "label": "Yards per rush"
+     },
+     {
+      "name": "totalPenaltiesYards",
+      "displayValue": "9-71",
+      "label": "Penalties"
+     },
+     {
+      "name": "turnovers",
+      "displayValue": "1",
+      "label": "Turnovers"
+     },
+     {
+      "name": "fumblesLost",
+      "displayValue": "0",
+      "label": "Fumbles lost"
+     },
+     {
+      "name": "interceptions",
+      "displayValue": "1",
+      "label": "Interceptions thrown"
+     },
+     {
+      "name": "possessionTime",
+      "displayValue": "25:48",
+      "label": "Possession"
+     }
+    ]
+   }
+  ]
+ },
+ "leaders": [
+  {
+   "team": {
+    "id": "2579",
+    "abbreviation": "SC"
+   },
+   "leaders": [
+    {
+     "name": "passingYards",
+     "displayName": "Passing Yards",
+     "leaders": [
+      {
+       "displayValue": "18/32, 210 YDS, 1 TD, 1 INT",
+       "athlete": {
+        "shortName": "L. Sellers",
+        "displayName": "LaNorris Sellers",
+        "jersey": "16",
+        "position": {
+         "abbreviation": "QB"
+        },
+        "headshot": {
+         "href": "https://a.espncdn.com/i/headshots/college-football/players/full/4875127.png"
+        }
+       }
+      }
+     ]
+    },
+    {
+     "name": "rushingYards",
+     "displayName": "Rushing Yards",
+     "leaders": [
+      {
+       "displayValue": "18 CAR, 96 YDS, 2 TD",
+       "athlete": {
+        "shortName": "L. Sellers",
+        "displayName": "LaNorris Sellers",
+        "jersey": "16",
+        "position": {
+         "abbreviation": "QB"
+        },
+        "headshot": {
+         "href": "https://a.espncdn.com/i/headshots/college-football/players/full/4875127.png"
+        }
+       }
+      }
+     ]
+    },
+    {
+     "name": "receivingYards",
+     "displayName": "Receiving Yards",
+     "leaders": [
+      {
+       "displayValue": "6 REC, 88 YDS, 1 TD",
+       "athlete": {
+        "shortName": "M. Bennett Jr.",
+        "displayName": "Mazeo Bennett Jr.",
+        "jersey": "3",
+        "position": {
+         "abbreviation": "WR"
+        },
+        "headshot": {
+         "href": "https://a.espncdn.com/i/headshots/college-football/players/full/5079329.png"
+        }
+       }
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "team": {
+    "id": "2633",
+    "abbreviation": "TENN"
+   },
+   "leaders": [
+    {
+     "name": "passingYards",
+     "displayName": "Passing Yards",
+     "leaders": [
+      {
+       "displayValue": "16/23, 136 YDS",
+       "athlete": {
+        "shortName": "G. MacIntyre",
+        "displayName": "George MacIntyre",
+        "jersey": "12",
+        "position": {
+         "abbreviation": "QB"
+        },
+        "headshot": {
+         "href": "https://a.espncdn.com/i/headshots/college-football/players/full/5141571.png"
+        }
+       }
+      }
+     ]
+    },
+    {
+     "name": "rushingYards",
+     "displayName": "Rushing Yards",
+     "leaders": [
+      {
+       "displayValue": "32 CAR, 120 YDS, 1 TD",
+       "athlete": {
+        "shortName": "D. Bishop",
+        "displayName": "DeSean Bishop",
+        "jersey": "18",
+        "position": {
+         "abbreviation": "RB"
+        },
+        "headshot": {
+         "href": "https://a.espncdn.com/i/headshots/college-football/players/full/4921108.png"
+        }
+       }
+      }
+     ]
+    },
+    {
+     "name": "receivingYards",
+     "displayName": "Receiving Yards",
+     "leaders": [
+      {
+       "displayValue": "6 REC, 56 YDS",
+       "athlete": {
+        "shortName": "B. Staley",
+        "displayName": "Braylon Staley",
+        "jersey": "14",
+        "position": {
+         "abbreviation": "WR"
+        },
+        "headshot": {
+         "href": "https://a.espncdn.com/i/headshots/college-football/players/full/5132629.png"
+        }
+       }
+      }
+     ]
+    }
+   ]
+  }
+ ],
+ "standings": {
+  "groups": [
+   {
+    "header": "2026 Southeastern Conference Standings",
+    "standings": {
+     "entries": [
+      {
+       "team": "Kentucky",
+       "id": "96",
+       "stats": [
+        {
+         "type": "total",
+         "summary": "7-1"
+        },
+        {
+         "type": "vsconf",
+         "summary": "5-1"
+        }
+       ]
+      },
+      {
+       "team": "Georgia",
+       "id": "61",
+       "stats": [
+        {
+         "type": "total",
+         "summary": "6-1"
+        },
+        {
+         "type": "vsconf",
+         "summary": "4-1"
+        }
+       ]
+      },
+      {
+       "team": "Alabama",
+       "id": "333",
+       "stats": [
+        {
+         "type": "total",
+         "summary": "6-2"
+        },
+        {
+         "type": "vsconf",
+         "summary": "4-2"
+        }
+       ]
+      },
+      {
+       "team": "Florida",
+       "id": "57",
+       "stats": [
+        {
+         "type": "total",
+         "summary": "5-2"
+        },
+        {
+         "type": "vsconf",
+         "summary": "3-2"
+        }
+       ]
+      },
+      {
+       "team": "Ole Miss",
+       "id": "145",
+       "stats": [
+        {
+         "type": "total",
+         "summary": "5-2"
+        },
+        {
+         "type": "vsconf",
+         "summary": "3-2"
+        }
+       ]
+      },
+      {
+       "team": "LSU",
+       "id": "99",
+       "stats": [
+        {
+         "type": "total",
+         "summary": "6-2"
+        },
+        {
+         "type": "vsconf",
+         "summary": "3-2"
+        }
+       ]
+      },
+      {
+       "team": "Tennessee",
+       "id": "2633",
+       "stats": [
+        {
+         "type": "total",
+         "summary": "6-2"
+        },
+        {
+         "type": "vsconf",
+         "summary": "3-2"
+        }
+       ]
+      },
+      {
+       "team": "Oklahoma",
+       "id": "201",
+       "stats": [
+        {
+         "type": "total",
+         "summary": "4-3"
+        },
+        {
+         "type": "vsconf",
+         "summary": "2-2"
+        }
+       ]
+      },
+      {
+       "team": "Missouri",
+       "id": "142",
+       "stats": [
+        {
+         "type": "total",
+         "summary": "5-2"
+        },
+        {
+         "type": "vsconf",
+         "summary": "2-2"
+        }
+       ]
+      },
+      {
+       "team": "Texas",
+       "id": "251",
+       "stats": [
+        {
+         "type": "total",
+         "summary": "5-2"
+        },
+        {
+         "type": "vsconf",
+         "summary": "2-2"
+        }
+       ]
+      },
+      {
+       "team": "Mississippi State",
+       "id": "344",
+       "stats": [
+        {
+         "type": "total",
+         "summary": "4-3"
+        },
+        {
+         "type": "vsconf",
+         "summary": "2-3"
+        }
+       ]
+      },
+      {
+       "team": "Auburn",
+       "id": "2",
+       "stats": [
+        {
+         "type": "total",
+         "summary": "4-3"
+        },
+        {
+         "type": "vsconf",
+         "summary": "2-3"
+        }
+       ]
+      },
+      {
+       "team": "South Carolina",
+       "id": "2579",
+       "stats": [
+        {
+         "type": "total",
+         "summary": "4-3"
+        },
+        {
+         "type": "vsconf",
+         "summary": "2-3"
+        }
+       ]
+      },
+      {
+       "team": "Arkansas",
+       "id": "8",
+       "stats": [
+        {
+         "type": "total",
+         "summary": "3-4"
+        },
+        {
+         "type": "vsconf",
+         "summary": "1-3"
+        }
+       ]
+      },
+      {
+       "team": "Texas A&M",
+       "id": "245",
+       "stats": [
+        {
+         "type": "total",
+         "summary": "4-4"
+        },
+        {
+         "type": "vsconf",
+         "summary": "1-4"
+        }
+       ]
+      },
+      {
+       "team": "Vanderbilt",
+       "id": "238",
+       "stats": [
+        {
+         "type": "total",
+         "summary": "3-5"
+        },
+        {
+         "type": "vsconf",
+         "summary": "0-5"
+        }
+       ]
+      }
+     ]
+    }
+   }
+  ]
+ },
+ "drives": {
+  "previous": [
+   {
+    "id": "40185673121",
+    "team": {
+     "id": "2579",
+     "abbreviation": "SC"
+    },
+    "description": "3 plays, -1 yard, 1:30",
+    "plays": [
+     {
+      "id": "401856731498",
+      "text": "(09:59) Shotgun #28 M.Fuller rush middle for 3 yards loss to the USC27 (#22 J.Telander)",
+      "period": {
+       "number": 3
+      },
+      "clock": {
+       "displayValue": "9:53"
+      },
+      "start": {
+       "down": 1,
+       "distance": 10,
+       "yardLine": 30,
+       "yardsToEndzone": 70,
+       "downDistanceText": "1st & 10 at SC 30"
+      }
+     },
+     {
+      "id": "401856731502",
+      "text": "(09:16) Shotgun #28 M.Fuller rush middle for 2 yards gain to the USC29 (#0 A.Campbell)",
+      "period": {
+       "number": 3
+      },
+      "clock": {
+       "displayValue": "9:11"
+      },
+      "start": {
+       "down": 2,
+       "distance": 13,
+       "yardLine": 27,
+       "yardsToEndzone": 73,
+       "downDistanceText": "2nd & 13 at SC 27"
+      }
+     },
+     {
+      "id": "401856731506",
+      "text": "(08:40) Shotgun #16 L.Sellers pass incomplete short left to #83 D.Black thrown to USC38 broken up by #4 T.Redmond",
+      "period": {
+       "number": 3
+      },
+      "clock": {
+       "displayValue": "8:37"
+      },
+      "start": {
+       "down": 3,
+       "distance": 11,
+       "yardLine": 29,
+       "yardsToEndzone": 71,
+       "downDistanceText": "3rd & 11 at SC 29"
+      }
+     },
+     {
+      "id": "401856731509",
+      "text": "(08:35) #24 M.Love punt 35 yards to the UTK36, out of bounds at UTK36",
+      "period": {
+       "number": 3
+      },
+      "clock": {
+       "displayValue": "8:29"
+      },
+      "start": {
+       "down": 4,
+       "distance": 11,
+       "yardLine": 29,
+       "yardsToEndzone": 71,
+       "downDistanceText": "4th & 11 at SC 29"
+      }
+     },
+     {
+      "id": "401856731516",
+      "text": "Timeout South Carolina, clock 08:29",
+      "period": {
+       "number": 3
+      },
+      "clock": {
+       "displayValue": "8:29"
+      },
+      "start": {
+       "down": 4,
+       "distance": 11,
+       "yardLine": 29,
+       "yardsToEndzone": 71,
+       "downDistanceText": "4th & 11 at SC 29"
+      }
+     }
+    ]
+   }
+  ]
+ },
+ "winprobability": [
+  {
+   "playId": "401856731498",
+   "homeWinPercentage": 0.2928
+  },
+  {
+   "playId": "401856731502",
+   "homeWinPercentage": 0.2801
+  },
+  {
+   "playId": "401856731506",
+   "homeWinPercentage": 0.2544
+  },
+  {
+   "playId": "401856731509",
+   "homeWinPercentage": 0.2498
+  },
+  {
+   "playId": "401856731516",
+   "homeWinPercentage": 0.247
+  },
+  {
+   "homeWinPercentage": 1.0,
+   "tiePercentage": 0.0,
+   "playId": "401856731828"
+  }
+ ]
+}

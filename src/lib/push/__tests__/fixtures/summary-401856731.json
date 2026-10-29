@@ -1,0 +1,1347 @@
+{
+ "_note": "Trimmed ESPN college-football summary?event=401856731 (header, scoringPlays, gameInfo.venue), fetched 2026-10-29.",
+ "header": {
+  "id": "401856731",
+  "uid": "s:20~l:23~e:401856731",
+  "season": {
+   "year": 2026,
+   "current": true,
+   "type": 2
+  },
+  "timeValid": true,
+  "competitions": [
+   {
+    "id": "401856731",
+    "uid": "s:20~l:23~e:401856731~c:401856731",
+    "date": "2026-10-24T19:30Z",
+    "dateValid": true,
+    "neutralSite": false,
+    "conferenceCompetition": true,
+    "boxscoreAvailable": true,
+    "commentaryAvailable": false,
+    "liveAvailable": false,
+    "onWatchESPN": true,
+    "recent": false,
+    "wallclockAvailable": true,
+    "boxscoreSource": "full",
+    "playByPlaySource": "full",
+    "competitors": [
+     {
+      "id": "2579",
+      "uid": "s:20~l:23~t:2579",
+      "order": 0,
+      "homeAway": "home",
+      "winner": true,
+      "team": {
+       "id": "2579",
+       "guid": "6509690a-8cf2-b255-5af7-b6a1a1010ac4",
+       "uid": "s:20~l:23~t:2579",
+       "location": "South Carolina",
+       "name": "Gamecocks",
+       "nickname": "South Carolina",
+       "abbreviation": "SC",
+       "displayName": "South Carolina Gamecocks",
+       "color": "73000a",
+       "alternateColor": "000000",
+       "logos": [
+        {
+         "href": "https://a.espncdn.com/i/teamlogos/ncaa/500/2579.png",
+         "width": 500,
+         "height": 500,
+         "alt": "",
+         "rel": [
+          "full",
+          "default"
+         ],
+         "lastUpdated": "2025-12-19T23:48Z"
+        },
+        {
+         "href": "https://a.espncdn.com/i/teamlogos/ncaa/500-dark/2579.png",
+         "width": 500,
+         "height": 500,
+         "alt": "",
+         "rel": [
+          "full",
+          "dark"
+         ],
+         "lastUpdated": "2025-12-19T23:47Z"
+        },
+        {
+         "href": "https://a.espncdn.com/guid/6509690a-8cf2-b255-5af7-b6a1a1010ac4/logos/primary_logo_on_white_color.png",
+         "width": 4096,
+         "height": 4096,
+         "alt": "",
+         "rel": [
+          "full",
+          "primary_logo_on_white_color"
+         ],
+         "lastUpdated": "2026-07-23T17:42Z"
+        },
+        {
+         "href": "https://a.espncdn.com/guid/6509690a-8cf2-b255-5af7-b6a1a1010ac4/logos/primary_logo_on_black_color.png",
+         "width": 4096,
+         "height": 4096,
+         "alt": "",
+         "rel": [
+          "full",
+          "primary_logo_on_black_color"
+         ],
+         "lastUpdated": "2026-07-23T17:42Z"
+        },
+        {
+         "href": "https://a.espncdn.com/guid/6509690a-8cf2-b255-5af7-b6a1a1010ac4/logos/primary_logo_on_primary_color.png",
+         "width": 4096,
+         "height": 4096,
+         "alt": "",
+         "rel": [
+          "full",
+          "primary_logo_on_primary_color"
+         ],
+         "lastUpdated": "2026-07-23T17:42Z"
+        },
+        {
+         "href": "https://a.espncdn.com/guid/6509690a-8cf2-b255-5af7-b6a1a1010ac4/logos/primary_logo_on_secondary_color.png",
+         "width": 4096,
+         "height": 4096,
+         "alt": "",
+         "rel": [
+          "full",
+          "primary_logo_on_secondary_color"
+         ],
+         "lastUpdated": "2026-07-23T17:42Z"
+        },
+        {
+         "href": "https://a.espncdn.com/guid/6509690a-8cf2-b255-5af7-b6a1a1010ac4/logos/primary_logo_black.png",
+         "width": 4096,
+         "height": 4096,
+         "alt": "",
+         "rel": [
+          "full",
+          "primary_logo_black"
+         ],
+         "lastUpdated": "2026-07-23T17:42Z"
+        },
+        {
+         "href": "https://a.espncdn.com/guid/6509690a-8cf2-b255-5af7-b6a1a1010ac4/logos/primary_logo_white.png",
+         "width": 4096,
+         "height": 4096,
+         "alt": "",
+         "rel": [
+          "full",
+          "primary_logo_white"
+         ],
+         "lastUpdated": "2026-07-23T17:42Z"
+        },
+        {
+         "href": "https://a.espncdn.com/guid/6509690a-8cf2-b255-5af7-b6a1a1010ac4/logos/secondary_logo_on_white_color.png",
+         "width": 4096,
+         "height": 4096,
+         "alt": "",
+         "rel": [
+          "full",
+          "secondary_logo_on_white_color"
+         ],
+         "lastUpdated": "2026-07-23T17:42Z"
+        },
+        {
+         "href": "https://a.espncdn.com/guid/6509690a-8cf2-b255-5af7-b6a1a1010ac4/logos/secondary_logo_on_black_color.png",
+         "width": 4096,
+         "height": 4096,
+         "alt": "",
+         "rel": [
+          "full",
+          "secondary_logo_on_black_color"
+         ],
+         "lastUpdated": "2026-07-23T17:42Z"
+        },
+        {
+         "href": "https://a.espncdn.com/guid/6509690a-8cf2-b255-5af7-b6a1a1010ac4/logos/secondary_logo_on_primary_color.png",
+         "width": 4096,
+         "height": 4096,
+         "alt": "",
+         "rel": [
+          "full",
+          "secondary_logo_on_primary_color"
+         ],
+         "lastUpdated": "2026-07-23T17:42Z"
+        },
+        {
+         "href": "https://a.espncdn.com/guid/6509690a-8cf2-b255-5af7-b6a1a1010ac4/logos/secondary_logo_on_secondary_color.png",
+         "width": 4096,
+         "height": 4096,
+         "alt": "",
+         "rel": [
+          "full",
+          "secondary_logo_on_secondary_color"
+         ],
+         "lastUpdated": "2026-07-23T17:42Z"
+        },
+        {
+         "href": "https://a.espncdn.com/guid/6509690a-8cf2-b255-5af7-b6a1a1010ac4/logos/secondary_logo_black.png",
+         "width": 4096,
+         "height": 4096,
+         "alt": "",
+         "rel": [
+          "full",
+          "secondary_logo_black"
+         ],
+         "lastUpdated": "2026-07-23T17:42Z"
+        },
+        {
+         "href": "https://a.espncdn.com/guid/6509690a-8cf2-b255-5af7-b6a1a1010ac4/logos/secondary_logo_white.png",
+         "width": 4096,
+         "height": 4096,
+         "alt": "",
+         "rel": [
+          "full",
+          "secondary_logo_white"
+         ],
+         "lastUpdated": "2026-07-23T17:42Z"
+        }
+       ],
+       "groups": {
+        "id": "8"
+       },
+       "links": [
+        {
+         "rel": [
+          "clubhouse",
+          "desktop",
+          "team"
+         ],
+         "href": "https://www.espn.com/college-football/team/_/id/2579/south-carolina-gamecocks",
+         "text": "Clubhouse"
+        }
+       ]
+      },
+      "score": "27",
+      "linescores": [
+       {
+        "displayValue": "14"
+       },
+       {
+        "displayValue": "3"
+       },
+       {
+        "displayValue": "0"
+       },
+       {
+        "displayValue": "10"
+       }
+      ],
+      "record": [
+       {
+        "type": "total",
+        "summary": "4-3",
+        "displayValue": "4-3"
+       },
+       {
+        "type": "home",
+        "summary": "3-2",
+        "displayValue": "3-2"
+       },
+       {
+        "type": "vsconf",
+        "summary": "2-3",
+        "displayValue": "2-3"
+       }
+      ],
+      "possession": false
+     },
+     {
+      "id": "2633",
+      "uid": "s:20~l:23~t:2633",
+      "order": 1,
+      "homeAway": "away",
+      "winner": false,
+      "team": {
+       "id": "2633",
+       "guid": "de276cc4-dc02-159f-0c1c-67ddaf02a9ea",
+       "uid": "s:20~l:23~t:2633",
+       "location": "Tennessee",
+       "name": "Volunteers",
+       "nickname": "Tennessee",
+       "abbreviation": "TENN",
+       "displayName": "Tennessee Volunteers",
+       "color": "ff8200",
+       "alternateColor": "ffffff",
+       "logos": [
+        {
+         "href": "https://a.espncdn.com/i/teamlogos/ncaa/500/2633.png",
+         "width": 500,
+         "height": 500,
+         "alt": "",
+         "rel": [
+          "full",
+          "default"
+         ],
+         "lastUpdated": "2025-12-19T23:48Z"
+        },
+        {
+         "href": "https://a.espncdn.com/i/teamlogos/ncaa/500-dark/2633.png",
+         "width": 500,
+         "height": 500,
+         "alt": "",
+         "rel": [
+          "full",
+          "dark"
+         ],
+         "lastUpdated": "2026-01-05T20:06Z"
+        },
+        {
+         "href": "https://a.espncdn.com/guid/de276cc4-dc02-159f-0c1c-67ddaf02a9ea/logos/primary_logo_on_white_color.png",
+         "width": 4096,
+         "height": 4096,
+         "alt": "",
+         "rel": [
+          "full",
+          "primary_logo_on_white_color"
+         ],
+         "lastUpdated": "2024-11-11T01:38Z"
+        },
+        {
+         "href": "https://a.espncdn.com/guid/de276cc4-dc02-159f-0c1c-67ddaf02a9ea/logos/primary_logo_on_black_color.png",
+         "width": 4096,
+         "height": 4096,
+         "alt": "",
+         "rel": [
+          "full",
+          "primary_logo_on_black_color"
+         ],
+         "lastUpdated": "2024-11-11T01:38Z"
+        },
+        {
+         "href": "https://a.espncdn.com/guid/de276cc4-dc02-159f-0c1c-67ddaf02a9ea/logos/primary_logo_on_primary_color.png",
+         "width": 4096,
+         "height": 4096,
+         "alt": "",
+         "rel": [
+          "full",
+          "primary_logo_on_primary_color"
+         ],
+         "lastUpdated": "2024-11-11T01:38Z"
+        },
+        {
+         "href": "https://a.espncdn.com/guid/de276cc4-dc02-159f-0c1c-67ddaf02a9ea/logos/primary_logo_on_secondary_color.png",
+         "width": 4096,
+         "height": 4096,
+         "alt": "",
+         "rel": [
+          "full",
+          "primary_logo_on_secondary_color"
+         ],
+         "lastUpdated": "2024-11-11T01:38Z"
+        },
+        {
+         "href": "https://a.espncdn.com/guid/de276cc4-dc02-159f-0c1c-67ddaf02a9ea/logos/secondary_logo_on_white_color.png",
+         "width": 4096,
+         "height": 4096,
+         "alt": "",
+         "rel": [
+          "full",
+          "secondary_logo_on_white_color"
+         ],
+         "lastUpdated": "2024-11-11T01:38Z"
+        },
+        {
+         "href": "https://a.espncdn.com/guid/de276cc4-dc02-159f-0c1c-67ddaf02a9ea/logos/secondary_logo_on_black_color.png",
+         "width": 4096,
+         "height": 4096,
+         "alt": "",
+         "rel": [
+          "full",
+          "secondary_logo_on_black_color"
+         ],
+         "lastUpdated": "2024-11-11T01:38Z"
+        },
+        {
+         "href": "https://a.espncdn.com/guid/de276cc4-dc02-159f-0c1c-67ddaf02a9ea/logos/secondary_logo_on_primary_color.png",
+         "width": 4096,
+         "height": 4096,
+         "alt": "",
+         "rel": [
+          "full",
+          "secondary_logo_on_primary_color"
+         ],
+         "lastUpdated": "2024-11-11T01:38Z"
+        },
+        {
+         "href": "https://a.espncdn.com/guid/de276cc4-dc02-159f-0c1c-67ddaf02a9ea/logos/secondary_logo_on_secondary_color.png",
+         "width": 4096,
+         "height": 4096,
+         "alt": "",
+         "rel": [
+          "full",
+          "secondary_logo_on_secondary_color"
+         ],
+         "lastUpdated": "2024-11-11T01:38Z"
+        }
+       ],
+       "groups": {
+        "id": "8"
+       },
+       "links": [
+        {
+         "rel": [
+          "clubhouse",
+          "desktop",
+          "team"
+         ],
+         "href": "https://www.espn.com/college-football/team/_/id/2633/tennessee-volunteers",
+         "text": "Clubhouse"
+        }
+       ]
+      },
+      "score": "24",
+      "linescores": [
+       {
+        "displayValue": "0"
+       },
+       {
+        "displayValue": "21"
+       },
+       {
+        "displayValue": "0"
+       },
+       {
+        "displayValue": "3"
+       }
+      ],
+      "record": [
+       {
+        "type": "total",
+        "summary": "6-2",
+        "displayValue": "6-2"
+       },
+       {
+        "type": "road",
+        "summary": "2-1",
+        "displayValue": "2-1"
+       },
+       {
+        "type": "vsconf",
+        "summary": "3-2",
+        "displayValue": "3-2"
+       }
+      ],
+      "possession": false,
+      "rank": 11
+     }
+    ],
+    "status": {
+     "type": {
+      "id": "3",
+      "name": "STATUS_FINAL",
+      "state": "post",
+      "completed": true,
+      "description": "Final",
+      "detail": "Final",
+      "shortDetail": "Final"
+     }
+    },
+    "broadcasts": [
+     {
+      "type": {
+       "id": "1",
+       "shortName": "TV"
+      },
+      "market": {
+       "id": "1",
+       "type": "National"
+      },
+      "media": {
+       "shortName": "ESPN"
+      },
+      "lang": "en",
+      "region": "us",
+      "isNational": true
+     },
+     {
+      "type": {
+       "id": "4",
+       "shortName": "Streaming"
+      },
+      "market": {
+       "id": "1",
+       "type": "National"
+      },
+      "media": {
+       "shortName": "Disney+"
+      },
+      "lang": "en",
+      "region": "us",
+      "isNational": true
+     }
+    ],
+    "groups": {
+     "id": "8",
+     "name": "Southeastern Conference",
+     "abbreviation": "sec",
+     "shortName": "SEC",
+     "midsizeName": "SEC"
+    },
+    "boxscoreMinutes": true
+   }
+  ],
+  "links": [
+   {
+    "rel": [
+     "summary",
+     "desktop",
+     "event"
+    ],
+    "href": "https://www.espn.com/college-football/game/_/gameId/401856731/tennessee-south-carolina",
+    "text": "Gamecast",
+    "shortText": "Summary",
+    "isExternal": false,
+    "isPremium": false
+   },
+   {
+    "rel": [
+     "recap",
+     "desktop",
+     "event"
+    ],
+    "href": "https://www.espn.com/college-football/recap?gameId=401856731",
+    "text": "Recap",
+    "shortText": "Recap",
+    "isExternal": false,
+    "isPremium": false
+   },
+   {
+    "rel": [
+     "boxscore",
+     "desktop",
+     "event"
+    ],
+    "href": "https://www.espn.com/college-football/boxscore/_/gameId/401856731",
+    "text": "Box Score",
+    "shortText": "Box Score",
+    "isExternal": false,
+    "isPremium": false
+   },
+   {
+    "rel": [
+     "pbp",
+     "desktop",
+     "event"
+    ],
+    "href": "https://www.espn.com/college-football/playbyplay/_/gameId/401856731",
+    "text": "Play-by-Play",
+    "shortText": "Play-by-Play",
+    "isExternal": false,
+    "isPremium": false
+   },
+   {
+    "rel": [
+     "teamstats",
+     "desktop",
+     "event"
+    ],
+    "href": "https://www.espn.com/college-football/matchup?gameId=401856731",
+    "text": "Team Stats",
+    "shortText": "Team Stats",
+    "isExternal": false,
+    "isPremium": false
+   },
+   {
+    "rel": [
+     "videos",
+     "desktop",
+     "event"
+    ],
+    "href": "https://www.espn.com/college-football/video?gameId=401856731",
+    "text": "Videos",
+    "shortText": "Videos",
+    "isExternal": false,
+    "isPremium": false
+   }
+  ],
+  "week": 8,
+  "league": {
+   "id": "23",
+   "uid": "s:20~l:23",
+   "name": "NCAA - Football",
+   "abbreviation": "NCAAF",
+   "shortName": "NCAA Football",
+   "midsizeName": "NCAA Football",
+   "slug": "college-football",
+   "isTournament": false,
+   "links": [
+    {
+     "rel": [
+      "index",
+      "desktop",
+      "league"
+     ],
+     "href": "https://www.espn.com/college-football/",
+     "text": "Index"
+    },
+    {
+     "rel": [
+      "index",
+      "sportscenter",
+      "app",
+      "league"
+     ],
+     "href": "sportscenter://x-callback-url/showClubhouse?uid=s:20~l:23",
+     "text": "Index"
+    },
+    {
+     "rel": [
+      "schedule",
+      "desktop",
+      "league"
+     ],
+     "href": "https://www.espn.com/college-football/schedule",
+     "text": "Schedule"
+    },
+    {
+     "rel": [
+      "schedule",
+      "sportscenter",
+      "app",
+      "league"
+     ],
+     "href": "sportscenter://x-callback-url/showClubhouse?uid=s:20~l:23&section=scores",
+     "text": "Schedule"
+    },
+    {
+     "rel": [
+      "standings",
+      "desktop",
+      "league"
+     ],
+     "href": "https://www.espn.com/college-football/standings",
+     "text": "Standings"
+    },
+    {
+     "rel": [
+      "standings",
+      "sportscenter",
+      "app",
+      "league"
+     ],
+     "href": "sportscenter://x-callback-url/showClubhouse?uid=s:20~l:23&section=standings",
+     "text": "Standings"
+    },
+    {
+     "rel": [
+      "rankings",
+      "desktop",
+      "league"
+     ],
+     "href": "https://www.espn.com/college-football/rankings",
+     "text": "Rankings"
+    },
+    {
+     "rel": [
+      "rankings",
+      "sportscenter",
+      "app",
+      "league"
+     ],
+     "href": "sportscenter://x-callback-url/showClubhouse?uid=s:20~l:23&section=rankings",
+     "text": "Rankings"
+    },
+    {
+     "rel": [
+      "scores",
+      "desktop",
+      "league"
+     ],
+     "href": "https://www.espn.com/college-football/scoreboard",
+     "text": "Scores"
+    },
+    {
+     "rel": [
+      "scores",
+      "sportscenter",
+      "app",
+      "league"
+     ],
+     "href": "sportscenter://x-callback-url/showClubhouse?uid=s:20~l:23&section=scores",
+     "text": "Scores"
+    },
+    {
+     "rel": [
+      "stats",
+      "desktop",
+      "league"
+     ],
+     "href": "https://www.espn.com/college-football/stats",
+     "text": "Stats"
+    },
+    {
+     "rel": [
+      "stats",
+      "sportscenter",
+      "app",
+      "league"
+     ],
+     "href": "sportscenter://x-callback-url/showClubhouse?uid=s:20~l:23&section=stats",
+     "text": "Stats"
+    },
+    {
+     "rel": [
+      "teams",
+      "desktop",
+      "league"
+     ],
+     "href": "https://www.espn.com/college-football/teams",
+     "text": "Teams"
+    },
+    {
+     "rel": [
+      "odds",
+      "desktop",
+      "league"
+     ],
+     "href": "https://www.espn.com/college-football/odds",
+     "text": "Odds"
+    },
+    {
+     "rel": [
+      "odds",
+      "sportscenter",
+      "app",
+      "league"
+     ],
+     "href": "sportscenter://x-callback-url/showClubhouse?uid=s:20~l:23&section=odds",
+     "text": "Odds"
+    }
+   ],
+   "logos": [
+    {
+     "href": "https://a.espncdn.com/redesign/assets/img/icons/NCAASports_Football.png",
+     "rel": [
+      "full",
+      "default"
+     ]
+    },
+    {
+     "href": "https://a.espncdn.com/redesign/assets/img/icons/NCAASports_Football.png",
+     "rel": [
+      "full",
+      "dark"
+     ]
+    }
+   ]
+  }
+ },
+ "scoringPlays": [
+  {
+   "id": "40185673164",
+   "type": {
+    "id": "67",
+    "text": "Passing Touchdown",
+    "abbreviation": "TD"
+   },
+   "text": "Mazeo Bennett Jr. 17 Yd pass from LaNorris Sellers (Malik Orsan Kick)",
+   "awayScore": 0,
+   "homeScore": 7,
+   "period": {
+    "number": 1
+   },
+   "clock": {
+    "value": 602.0,
+    "displayValue": "10:02"
+   },
+   "team": {
+    "id": "2579",
+    "uid": "s:20~l:23~t:2579",
+    "displayName": "South Carolina Gamecocks",
+    "abbreviation": "SC",
+    "links": [
+     {
+      "href": "https://www.espn.com/college-football/team/_/id/2579/south-carolina-gamecocks",
+      "text": "Clubhouse"
+     },
+     {
+      "href": "https://www.espn.com/college-football/team/schedule/_/id/2579",
+      "text": "Schedule"
+     }
+    ],
+    "logo": "https://a.espncdn.com/i/teamlogos/ncaa/500/2579.png",
+    "logos": [
+     {
+      "href": "https://a.espncdn.com/i/teamlogos/ncaa/500/2579.png",
+      "width": 500,
+      "height": 500,
+      "alt": "",
+      "rel": [
+       "full",
+       "default"
+      ],
+      "lastUpdated": "2025-12-19T23:48Z"
+     },
+     {
+      "href": "https://a.espncdn.com/i/teamlogos/ncaa/500-dark/2579.png",
+      "width": 500,
+      "height": 500,
+      "alt": "",
+      "rel": [
+       "full",
+       "dark"
+      ],
+      "lastUpdated": "2025-12-19T23:47Z"
+     }
+    ]
+   },
+   "scoringType": {
+    "name": "touchdown",
+    "displayName": "Touchdown",
+    "abbreviation": "TD"
+   }
+  },
+  {
+   "id": "401856731102",
+   "type": {
+    "id": "68",
+    "text": "Rushing Touchdown",
+    "abbreviation": "TD"
+   },
+   "text": "LaNorris Sellers 31 Yd Run (Malik Orsan Kick)",
+   "awayScore": 0,
+   "homeScore": 14,
+   "period": {
+    "number": 1
+   },
+   "clock": {
+    "value": 497.0,
+    "displayValue": "8:17"
+   },
+   "team": {
+    "id": "2579",
+    "uid": "s:20~l:23~t:2579",
+    "displayName": "South Carolina Gamecocks",
+    "abbreviation": "SC",
+    "links": [
+     {
+      "href": "https://www.espn.com/college-football/team/_/id/2579/south-carolina-gamecocks",
+      "text": "Clubhouse"
+     },
+     {
+      "href": "https://www.espn.com/college-football/team/schedule/_/id/2579",
+      "text": "Schedule"
+     }
+    ],
+    "logo": "https://a.espncdn.com/i/teamlogos/ncaa/500/2579.png",
+    "logos": [
+     {
+      "href": "https://a.espncdn.com/i/teamlogos/ncaa/500/2579.png",
+      "width": 500,
+      "height": 500,
+      "alt": "",
+      "rel": [
+       "full",
+       "default"
+      ],
+      "lastUpdated": "2025-12-19T23:48Z"
+     },
+     {
+      "href": "https://a.espncdn.com/i/teamlogos/ncaa/500-dark/2579.png",
+      "width": 500,
+      "height": 500,
+      "alt": "",
+      "rel": [
+       "full",
+       "dark"
+      ],
+      "lastUpdated": "2025-12-19T23:47Z"
+     }
+    ]
+   },
+   "scoringType": {
+    "name": "touchdown",
+    "displayName": "Touchdown",
+    "abbreviation": "TD"
+   }
+  },
+  {
+   "id": "401856731203",
+   "type": {
+    "id": "68",
+    "text": "Rushing Touchdown",
+    "abbreviation": "TD"
+   },
+   "text": "DeSean Bishop 1 Yd Run (Cooper Ranvier Kick)",
+   "awayScore": 7,
+   "homeScore": 14,
+   "period": {
+    "number": 2
+   },
+   "clock": {
+    "value": 852.0,
+    "displayValue": "14:12"
+   },
+   "team": {
+    "id": "2633",
+    "uid": "s:20~l:23~t:2633",
+    "displayName": "Tennessee Volunteers",
+    "abbreviation": "TENN",
+    "links": [
+     {
+      "href": "https://www.espn.com/college-football/team/_/id/2633/tennessee-volunteers",
+      "text": "Clubhouse"
+     },
+     {
+      "href": "https://www.espn.com/college-football/team/schedule/_/id/2633",
+      "text": "Schedule"
+     }
+    ],
+    "logo": "https://a.espncdn.com/i/teamlogos/ncaa/500/2633.png",
+    "logos": [
+     {
+      "href": "https://a.espncdn.com/i/teamlogos/ncaa/500/2633.png",
+      "width": 500,
+      "height": 500,
+      "alt": "",
+      "rel": [
+       "full",
+       "default"
+      ],
+      "lastUpdated": "2025-12-19T23:48Z"
+     },
+     {
+      "href": "https://a.espncdn.com/i/teamlogos/ncaa/500-dark/2633.png",
+      "width": 500,
+      "height": 500,
+      "alt": "",
+      "rel": [
+       "full",
+       "dark"
+      ],
+      "lastUpdated": "2026-01-05T20:06Z"
+     }
+    ]
+   },
+   "scoringType": {
+    "name": "touchdown",
+    "displayName": "Touchdown",
+    "abbreviation": "TD"
+   }
+  },
+  {
+   "id": "401856731264",
+   "type": {
+    "id": "68",
+    "text": "Rushing Touchdown",
+    "abbreviation": "TD"
+   },
+   "text": "DaSaahn Brame 1 Yd Run (Cooper Ranvier Kick)",
+   "awayScore": 14,
+   "homeScore": 14,
+   "period": {
+    "number": 2
+   },
+   "clock": {
+    "value": 486.0,
+    "displayValue": "8:06"
+   },
+   "team": {
+    "id": "2633",
+    "uid": "s:20~l:23~t:2633",
+    "displayName": "Tennessee Volunteers",
+    "abbreviation": "TENN",
+    "links": [
+     {
+      "href": "https://www.espn.com/college-football/team/_/id/2633/tennessee-volunteers",
+      "text": "Clubhouse"
+     },
+     {
+      "href": "https://www.espn.com/college-football/team/schedule/_/id/2633",
+      "text": "Schedule"
+     }
+    ],
+    "logo": "https://a.espncdn.com/i/teamlogos/ncaa/500/2633.png",
+    "logos": [
+     {
+      "href": "https://a.espncdn.com/i/teamlogos/ncaa/500/2633.png",
+      "width": 500,
+      "height": 500,
+      "alt": "",
+      "rel": [
+       "full",
+       "default"
+      ],
+      "lastUpdated": "2025-12-19T23:48Z"
+     },
+     {
+      "href": "https://a.espncdn.com/i/teamlogos/ncaa/500-dark/2633.png",
+      "width": 500,
+      "height": 500,
+      "alt": "",
+      "rel": [
+       "full",
+       "dark"
+      ],
+      "lastUpdated": "2026-01-05T20:06Z"
+     }
+    ]
+   },
+   "scoringType": {
+    "name": "touchdown",
+    "displayName": "Touchdown",
+    "abbreviation": "TD"
+   }
+  },
+  {
+   "id": "401856731350",
+   "type": {
+    "id": "59",
+    "text": "Field Goal Good",
+    "abbreviation": "FG"
+   },
+   "text": "Malik Orsan 22 Yd Field Goal  ",
+   "awayScore": 14,
+   "homeScore": 17,
+   "period": {
+    "number": 2
+   },
+   "clock": {
+    "value": 104.0,
+    "displayValue": "1:44"
+   },
+   "team": {
+    "id": "2579",
+    "uid": "s:20~l:23~t:2579",
+    "displayName": "South Carolina Gamecocks",
+    "abbreviation": "SC",
+    "links": [
+     {
+      "href": "https://www.espn.com/college-football/team/_/id/2579/south-carolina-gamecocks",
+      "text": "Clubhouse"
+     },
+     {
+      "href": "https://www.espn.com/college-football/team/schedule/_/id/2579",
+      "text": "Schedule"
+     }
+    ],
+    "logo": "https://a.espncdn.com/i/teamlogos/ncaa/500/2579.png",
+    "logos": [
+     {
+      "href": "https://a.espncdn.com/i/teamlogos/ncaa/500/2579.png",
+      "width": 500,
+      "height": 500,
+      "alt": "",
+      "rel": [
+       "full",
+       "default"
+      ],
+      "lastUpdated": "2025-12-19T23:48Z"
+     },
+     {
+      "href": "https://a.espncdn.com/i/teamlogos/ncaa/500-dark/2579.png",
+      "width": 500,
+      "height": 500,
+      "alt": "",
+      "rel": [
+       "full",
+       "dark"
+      ],
+      "lastUpdated": "2025-12-19T23:47Z"
+     }
+    ]
+   },
+   "scoringType": {
+    "name": "field-goal",
+    "displayName": "Field Goal",
+    "abbreviation": "FG"
+   }
+  },
+  {
+   "id": "401856731384",
+   "type": {
+    "id": "68",
+    "text": "Rushing Touchdown",
+    "abbreviation": "TD"
+   },
+   "text": "Mike Matthews 8 Yd Run (Cooper Ranvier Kick)",
+   "awayScore": 21,
+   "homeScore": 17,
+   "period": {
+    "number": 2
+   },
+   "clock": {
+    "value": 24.0,
+    "displayValue": "0:24"
+   },
+   "team": {
+    "id": "2633",
+    "uid": "s:20~l:23~t:2633",
+    "displayName": "Tennessee Volunteers",
+    "abbreviation": "TENN",
+    "links": [
+     {
+      "href": "https://www.espn.com/college-football/team/_/id/2633/tennessee-volunteers",
+      "text": "Clubhouse"
+     },
+     {
+      "href": "https://www.espn.com/college-football/team/schedule/_/id/2633",
+      "text": "Schedule"
+     }
+    ],
+    "logo": "https://a.espncdn.com/i/teamlogos/ncaa/500/2633.png",
+    "logos": [
+     {
+      "href": "https://a.espncdn.com/i/teamlogos/ncaa/500/2633.png",
+      "width": 500,
+      "height": 500,
+      "alt": "",
+      "rel": [
+       "full",
+       "default"
+      ],
+      "lastUpdated": "2025-12-19T23:48Z"
+     },
+     {
+      "href": "https://a.espncdn.com/i/teamlogos/ncaa/500-dark/2633.png",
+      "width": 500,
+      "height": 500,
+      "alt": "",
+      "rel": [
+       "full",
+       "dark"
+      ],
+      "lastUpdated": "2026-01-05T20:06Z"
+     }
+    ]
+   },
+   "scoringType": {
+    "name": "touchdown",
+    "displayName": "Touchdown",
+    "abbreviation": "TD"
+   }
+  },
+  {
+   "id": "401856731640",
+   "type": {
+    "id": "59",
+    "text": "Field Goal Good",
+    "abbreviation": "FG"
+   },
+   "text": "Cooper Ranvier 37 Yd Field Goal  ",
+   "awayScore": 24,
+   "homeScore": 17,
+   "period": {
+    "number": 4
+   },
+   "clock": {
+    "value": 706.0,
+    "displayValue": "11:46"
+   },
+   "team": {
+    "id": "2633",
+    "uid": "s:20~l:23~t:2633",
+    "displayName": "Tennessee Volunteers",
+    "abbreviation": "TENN",
+    "links": [
+     {
+      "href": "https://www.espn.com/college-football/team/_/id/2633/tennessee-volunteers",
+      "text": "Clubhouse"
+     },
+     {
+      "href": "https://www.espn.com/college-football/team/schedule/_/id/2633",
+      "text": "Schedule"
+     }
+    ],
+    "logo": "https://a.espncdn.com/i/teamlogos/ncaa/500/2633.png",
+    "logos": [
+     {
+      "href": "https://a.espncdn.com/i/teamlogos/ncaa/500/2633.png",
+      "width": 500,
+      "height": 500,
+      "alt": "",
+      "rel": [
+       "full",
+       "default"
+      ],
+      "lastUpdated": "2025-12-19T23:48Z"
+     },
+     {
+      "href": "https://a.espncdn.com/i/teamlogos/ncaa/500-dark/2633.png",
+      "width": 500,
+      "height": 500,
+      "alt": "",
+      "rel": [
+       "full",
+       "dark"
+      ],
+      "lastUpdated": "2026-01-05T20:06Z"
+     }
+    ]
+   },
+   "scoringType": {
+    "name": "field-goal",
+    "displayName": "Field Goal",
+    "abbreviation": "FG"
+   }
+  },
+  {
+   "id": "401856731766",
+   "type": {
+    "id": "68",
+    "text": "Rushing Touchdown",
+    "abbreviation": "TD"
+   },
+   "text": "LaNorris Sellers 4 Yd Run (Malik Orsan Kick)",
+   "awayScore": 24,
+   "homeScore": 24,
+   "period": {
+    "number": 4
+   },
+   "clock": {
+    "value": 77.0,
+    "displayValue": "1:17"
+   },
+   "team": {
+    "id": "2579",
+    "uid": "s:20~l:23~t:2579",
+    "displayName": "South Carolina Gamecocks",
+    "abbreviation": "SC",
+    "links": [
+     {
+      "href": "https://www.espn.com/college-football/team/_/id/2579/south-carolina-gamecocks",
+      "text": "Clubhouse"
+     },
+     {
+      "href": "https://www.espn.com/college-football/team/schedule/_/id/2579",
+      "text": "Schedule"
+     }
+    ],
+    "logo": "https://a.espncdn.com/i/teamlogos/ncaa/500/2579.png",
+    "logos": [
+     {
+      "href": "https://a.espncdn.com/i/teamlogos/ncaa/500/2579.png",
+      "width": 500,
+      "height": 500,
+      "alt": "",
+      "rel": [
+       "full",
+       "default"
+      ],
+      "lastUpdated": "2025-12-19T23:48Z"
+     },
+     {
+      "href": "https://a.espncdn.com/i/teamlogos/ncaa/500-dark/2579.png",
+      "width": 500,
+      "height": 500,
+      "alt": "",
+      "rel": [
+       "full",
+       "dark"
+      ],
+      "lastUpdated": "2025-12-19T23:47Z"
+     }
+    ]
+   },
+   "scoringType": {
+    "name": "touchdown",
+    "displayName": "Touchdown",
+    "abbreviation": "TD"
+   }
+  },
+  {
+   "id": "401856731823",
+   "type": {
+    "id": "59",
+    "text": "Field Goal Good",
+    "abbreviation": "FG"
+   },
+   "text": "Malik Orsan 48 Yd Field Goal ",
+   "awayScore": 24,
+   "homeScore": 27,
+   "period": {
+    "number": 4
+   },
+   "clock": {
+    "value": 0.0,
+    "displayValue": "0:00"
+   },
+   "team": {
+    "id": "2579",
+    "uid": "s:20~l:23~t:2579",
+    "displayName": "South Carolina Gamecocks",
+    "abbreviation": "SC",
+    "links": [
+     {
+      "href": "https://www.espn.com/college-football/team/_/id/2579/south-carolina-gamecocks",
+      "text": "Clubhouse"
+     },
+     {
+      "href": "https://www.espn.com/college-football/team/schedule/_/id/2579",
+      "text": "Schedule"
+     }
+    ],
+    "logo": "https://a.espncdn.com/i/teamlogos/ncaa/500/2579.png",
+    "logos": [
+     {
+      "href": "https://a.espncdn.com/i/teamlogos/ncaa/500/2579.png",
+      "width": 500,
+      "height": 500,
+      "alt": "",
+      "rel": [
+       "full",
+       "default"
+      ],
+      "lastUpdated": "2025-12-19T23:48Z"
+     },
+     {
+      "href": "https://a.espncdn.com/i/teamlogos/ncaa/500-dark/2579.png",
+      "width": 500,
+      "height": 500,
+      "alt": "",
+      "rel": [
+       "full",
+       "dark"
+      ],
+      "lastUpdated": "2025-12-19T23:47Z"
+     }
+    ]
+   },
+   "scoringType": {
+    "name": "field-goal",
+    "displayName": "Field Goal",
+    "abbreviation": "FG"
+   }
+  }
+ ],
+ "gameInfo": {
+  "venue": {
+   "id": "3994",
+   "guid": "95b9c849-5103-313c-bfa9-7db7d4202718",
+   "fullName": "Williams-Brice Stadium",
+   "address": {
+    "city": "Columbia",
+    "state": "SC",
+    "zipCode": "29201",
+    "country": "USA"
+   },
+   "grass": true,
+   "images": [
+    {
+     "href": "https://a.espncdn.com/i/venues/college-football/day/3994.jpg",
+     "width": 2000,
+     "height": 1125,
+     "alt": "",
+     "rel": [
+      "full",
+      "day"
+     ]
+    },
+    {
+     "href": "https://a.espncdn.com/i/venues/college-football/day/interior/3994.jpg",
+     "width": 2000,
+     "height": 1125,
+     "alt": "",
+     "rel": [
+      "full",
+      "day",
+      "interior"
+     ]
+    }
+   ]
+  }
+ }
+}
