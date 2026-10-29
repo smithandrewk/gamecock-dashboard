@@ -4,6 +4,7 @@ import type { ReactNode } from "react";
 import { Bell, Check, MoreHorizontal, MoreVertical } from "lucide-react";
 import { Sheet } from "@/components/ui/sheet";
 import type { InstallState } from "@/hooks/useInstall";
+import { track } from "@/lib/analytics/track";
 
 /** The iOS share glyph (square with an arrow out the top), as Safari draws it. */
 export function ShareGlyph({ className = "inline-block size-[18px] align-[-3px]" }: { className?: string }) {
@@ -97,6 +98,7 @@ export function InstallSheet({ open, onClose, install }: { open: boolean; onClos
                 type="button"
                 onClick={async () => {
                   const r = await promptInstall();
+                  track("install_prompt", { outcome: r });
                   if (r === "accepted") onClose();
                 }}
                 className="mt-4 h-12 w-full rounded-full bg-white text-[16px] font-semibold text-black active:opacity-80"

@@ -17,15 +17,18 @@
     "clsx": "^2.1.1",
     "lucide-react": "^0.556.0",
     "next": "16.0.7",
+    "pg": "^8.23.1",
     "posthog-js": "^1.302.2",
     "react": "19.2.0",
     "react-dom": "19.2.0",
+    "server-only": "^0.0.1",
     "tailwind-merge": "^3.4.0",
     "web-push": "^3.6.7"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",
     "@types/node": "^20",
+    "@types/pg": "^8.23.1",
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "@types/web-push": "^3.6.4",

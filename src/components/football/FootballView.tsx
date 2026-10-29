@@ -11,6 +11,7 @@ import { ScheduleList, type ScheduleItem } from "@/components/shared/ScheduleLis
 import { ago, useNow } from "@/components/shared/format";
 import { FootballHero } from "./FootballHero";
 import { GameDetailSheet } from "./GameDetailSheet";
+import { track } from "@/lib/analytics/track";
 import { isOT } from "./parts";
 
 function toItem(g: FBGame): ScheduleItem {
@@ -131,7 +132,12 @@ export function FootballView({ demo }: { demo: DemoMode | null }) {
   const items = useMemo(() => games.map(toItem), [games]);
   // "hero" = opened from the hero card (uses the hero's live/demo summary); otherwise a schedule id.
   const selectedGame = selected === "hero" ? hero : selected ? games.find((g) => g.id === selected) : undefined;
-  const openFromHero = (id: string) => setSelected(id === hero?.id ? "hero" : id);
+  const openGame = (id: string, source: "hero" | "schedule") => {
+    const g = id === "hero" ? hero : games.find((x) => x.id === id);
+    track("game_open", { sport: "football", state: g?.state ?? null, source });
+    setSelected(id);
+  };
+  const openFromHero = (id: string) => openGame(id === hero?.id ? "hero" : id, "hero");
 
   if (season.isPending) {
     return (
@@ -184,7 +190,7 @@ export function FootballView({ demo }: { demo: DemoMode | null }) {
 
       <section>
         <SectionTitle right={data.seasonLabel ? `${data.seasonLabel} season` : undefined}>Schedule</SectionTitle>
-        <ScheduleList items={items} highlightId={heroGame?.state === "pre" ? heroGame.id : undefined} onSelect={setSelected} testId="football-schedule" />
+        <ScheduleList items={items} highlightId={heroGame?.state === "pre" ? heroGame.id : undefined} onSelect={(id) => openGame(id, "schedule")} testId="football-schedule" />
         <p className="mt-2 px-1 text-[11px] text-white/35">Times in your time zone. TBD = kickoff not announced yet. Rankings via ESPN.</p>
       </section>
 
