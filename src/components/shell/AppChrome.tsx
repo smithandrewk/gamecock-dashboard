@@ -1,10 +1,9 @@
 "use client";
 
 import Image from "next/image";
-import { Bell, BellRing } from "lucide-react";
+import { Bell, BellRing, SquarePlus } from "lucide-react";
 import { cn } from "@/lib/utils";
 import type { AppSport } from "@/lib/espn";
-import { ShareGlyph } from "./InstallSheet";
 
 export const SPORT_TABS: { id: AppSport; label: string; title: string }[] = [
   { id: "football", label: "Football", title: "Football" },
@@ -23,7 +22,7 @@ interface HeaderProps {
 /** Compact top bar: brand on the left, install + alerts on the right. Sits under the status bar. */
 export function AppHeader({ showInstall, subscribed, onInstall, onNotify }: HeaderProps) {
   return (
-    <header className="pt-safe sticky top-0 z-40 border-b border-white/[0.06] bg-black/80 backdrop-blur-xl backdrop-saturate-150">
+    <header className="pt-safe sticky top-0 z-40 border-b border-white/[0.06] bg-black">
       <div className="mx-auto flex h-12 max-w-lg items-center gap-2 px-4">
         <Image src="/gamecock.svg" alt="" width={20} height={22} className="pixelated" priority />
         <span className="text-[17px] font-semibold tracking-tight">Gamecock AI</span>
@@ -35,7 +34,7 @@ export function AppHeader({ showInstall, subscribed, onInstall, onNotify }: Head
               data-testid="install-open"
               className="relative flex h-8 items-center gap-1.5 rounded-full bg-white/[0.1] pr-3 pl-2.5 text-[13px] font-semibold before:absolute before:inset-x-0 before:-inset-y-1.5 before:content-[''] active:bg-white/[0.16]"
             >
-              <ShareGlyph className="size-4" />
+              <SquarePlus className="size-4" aria-hidden />
               Get the app
             </button>
           )}
@@ -89,7 +88,7 @@ function SportIcon({ sport, className }: { sport: AppSport; className?: string }
 export function SportTabBar({ value, onChange }: { value: AppSport; onChange: (s: AppSport) => void }) {
   return (
     <nav
-      className="pb-safe fixed inset-x-0 bottom-0 z-40 border-t border-white/[0.08] bg-black/95 backdrop-blur-xl backdrop-saturate-150"
+      className="pb-safe fixed inset-x-0 bottom-0 z-40 border-t border-white/[0.08] bg-black"
       aria-label="Sports"
     >
       <div className="mx-auto grid max-w-lg grid-cols-4" role="tablist">

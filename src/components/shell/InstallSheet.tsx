@@ -54,14 +54,16 @@ function IOSSteps({ safari }: { safari: boolean }) {
       )}
       <ol className="divide-y divide-white/[0.06]">
         <Step n={1}>
-          Tap the <span className="font-semibold">Share</span> button <ShareGlyph />
+          Tap the <MoreHorizontal className="inline size-4 align-[-3px]" /> button in Safari&apos;s toolbar
           <span className="mt-0.5 block text-[13px] text-muted-foreground">
-            On iOS 26 it&apos;s inside the <MoreHorizontal className="inline size-4 align-[-3px]" /> menu at the bottom right of Safari.
+            On older iPhones, tap the Share button <ShareGlyph /> instead.
           </span>
         </Step>
         <Step n={2}>
-          Scroll down and tap <span className="font-semibold">Add to Home Screen</span> <AddGlyph />
-          <span className="mt-0.5 block text-[13px] text-muted-foreground">Leave &ldquo;Open as Web App&rdquo; on if you see it.</span>
+          Tap <span className="font-semibold">Add to Home Screen</span> <AddGlyph />
+          <span className="mt-0.5 block text-[13px] text-muted-foreground">
+            Don&apos;t see it? Tap <span className="font-semibold">Share</span> first and scroll down. Leave &ldquo;Open as Web App&rdquo; on.
+          </span>
         </Step>
         <Step n={3}>
           Tap <span className="font-semibold">Add</span>, then open <span className="font-semibold">Gamecocks</span> from your Home Screen.
