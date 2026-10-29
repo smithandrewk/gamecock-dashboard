@@ -1,5 +1,7 @@
 "use client";
 
+import { track } from "@/lib/analytics/track";
+
 import { useState } from "react";
 import { BellOff, Loader2 } from "lucide-react";
 import { cn } from "@/lib/utils";
@@ -107,6 +109,11 @@ interface Props {
   onOpenInstall: () => void;
 }
 
+/** The toggles that are on, e.g. ["kickoffSoon","scScores"], for analytics. */
+function prefList(p: PushPrefs): string[] {
+  return Object.entries(p).filter(([k, v]) => k !== "sports" && v === true).map(([k]) => k);
+}
+
 export function AlertsSheet({ open, onClose, push, onOpenInstall }: Props) {
   const [draft, setDraft] = useState<PushPrefs | null>(null);
   const [notice, setNotice] = useState<string | null>(null);
@@ -118,6 +125,7 @@ export function AlertsSheet({ open, onClose, push, onOpenInstall }: Props) {
     if (push.subscribed) {
       try {
         await push.updatePrefs(next);
+        track("alerts_prefs", { sports: next.sports, prefs: prefList(next) });
       } catch {
         /* push.error shows it */
       }
@@ -215,6 +223,7 @@ export function AlertsSheet({ open, onClose, push, onOpenInstall }: Props) {
                 setNotice(null);
                 try {
                   await push.subscribe(prefs);
+                  track("alerts_on", { sports: prefs.sports, prefs: prefList(prefs) });
                   setNotice("Alerts are on.");
                 } catch {
                   /* push.error shows it */
@@ -235,6 +244,7 @@ export function AlertsSheet({ open, onClose, push, onOpenInstall }: Props) {
                   setNotice(null);
                   try {
                     await push.sendTest();
+                    track("alerts_test");
                     setNotice("Test alert sent. It should arrive in a few seconds.");
                   } catch {
                     /* push.error shows it */
@@ -253,6 +263,7 @@ export function AlertsSheet({ open, onClose, push, onOpenInstall }: Props) {
                   setNotice(null);
                   try {
                     await push.unsubscribe();
+                    track("alerts_off");
                     setNotice("Alerts are off on this device.");
                   } catch {
                     /* push.error shows it */

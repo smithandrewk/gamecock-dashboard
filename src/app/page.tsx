@@ -11,6 +11,8 @@ import { SportView } from "@/components/sports/SportView";
 import { AppHeader, SPORT_TABS, SportTabBar } from "@/components/shell/AppChrome";
 import { InstallSheet } from "@/components/shell/InstallSheet";
 import { AlertsSheet } from "@/components/shell/AlertsSheet";
+import { Analytics } from "@/components/shell/Analytics";
+import { track } from "@/lib/analytics/track";
 
 const SPORT_IDS = SPORT_TABS.map((t) => t.id);
 
@@ -26,6 +28,7 @@ function Dashboard() {
 
   const changeSport = useCallback((s: AppSport) => {
     setSport(s);
+    track("tab_view", { sport: s });
     scrollRef.current?.scrollTo({ top: 0 });
     // Keep the tab in the URL so a shared link / reload lands on the same sport.
     const url = new URL(window.location.href);
@@ -53,8 +56,14 @@ function Dashboard() {
       <AppHeader
         showInstall={install.ready && !install.standalone}
         subscribed={push.subscribed}
-        onInstall={() => setSheet("install")}
-        onNotify={() => setSheet("alerts")}
+        onInstall={() => {
+          track("install_open", { platform: install.platform });
+          setSheet("install");
+        }}
+        onNotify={() => {
+          track("alerts_open", { subscribed: push.subscribed, needsInstall: push.needsInstall });
+          setSheet("alerts");
+        }}
       />
 
       <main ref={scrollRef} className="min-h-0 flex-1 overflow-y-auto overscroll-contain">
@@ -72,6 +81,7 @@ function Dashboard() {
 
       <AlertsSheet open={sheet === "alerts"} onClose={closeSheet} push={push} onOpenInstall={() => setSheet("install")} />
       <InstallSheet open={sheet === "install"} onClose={closeSheet} install={install} />
+      <Analytics install={install} sport={sport} />
     </div>
   );
 }
