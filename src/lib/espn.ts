@@ -1,4 +1,9 @@
-const ESPN_BASE = "https://site.api.espn.com/apis/site/v2/sports";
+// In the browser, ESPN calls go through our own API route (src/app/api/espn)
+// because ESPN dropped CORS headers on some endpoints. On the server (route
+// handlers, the notification cron) we call ESPN directly.
+const isBrowser = typeof window !== "undefined";
+const ESPN_BASE = isBrowser ? "/api/espn/site" : "https://site.api.espn.com/apis/site/v2/sports";
+const ESPN_WEB_BASE = isBrowser ? "/api/espn/web" : "https://site.web.api.espn.com/apis/v2/sports";
 
 // USC team IDs
 export const USC_TEAM_IDS = {
@@ -255,7 +260,9 @@ export async function getGameSummary(eventId: string): Promise<GameSummary | nul
 export async function getTeamSchedule(sport: Sport): Promise<Game[]> {
   const path = SPORT_PATHS[sport];
   const teamId = USC_TEAM_IDS[sport];
-  const url = `${ESPN_BASE}/${path}/teams/${teamId}/schedule`;
+  // seasontype=2 (regular season) is required: without it ESPN returns zero
+  // events for MBB before the season tips off.
+  const url = `${ESPN_BASE}/${path}/teams/${teamId}/schedule?seasontype=2`;
 
   const res = await fetch(url);
   if (!res.ok) throw new Error(`ESPN API error: ${res.status}`);
@@ -392,7 +399,7 @@ export interface StandingsEntry {
 }
 
 export async function getBaseballStandings(): Promise<StandingsEntry[]> {
-  const url = "https://site.web.api.espn.com/apis/v2/sports/baseball/college-baseball/standings?level=3";
+  const url = `${ESPN_WEB_BASE}/baseball/college-baseball/standings?level=3`;
 
   const res = await fetch(url);
   if (!res.ok) throw new Error(`ESPN standings API error: ${res.status}`);
