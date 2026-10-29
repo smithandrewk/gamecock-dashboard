@@ -1,108 +1,66 @@
 "use client";
 
+import { useState } from "react";
+import { ChevronDown } from "lucide-react";
+import { cn } from "@/lib/utils";
 import { StandingsEntry } from "@/lib/espn";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, SectionTitle, TeamLogo } from "@/components/shared/bits";
 import { Skeleton } from "@/components/ui/skeleton";
 
 interface SECStandingsProps {
   standings?: StandingsEntry[];
   isLoading?: boolean;
+  title?: string;
 }
 
-export function SECStandings({ standings, isLoading }: SECStandingsProps) {
+/** Baseball SEC standings (ESPN standings API), sorted by SEC win %, collapsed to the rows around South Carolina. */
+export function SECStandings({ standings, isLoading, title = "SEC standings" }: SECStandingsProps) {
+  const [open, setOpen] = useState(false);
   if (isLoading) {
     return (
-      <Card>
-        <CardHeader className="pb-3">
-          <CardTitle className="text-lg">SEC Standings</CardTitle>
-        </CardHeader>
-        <CardContent>
-          <div className="space-y-2">
-            {Array.from({ length: 8 }).map((_, i) => (
-              <Skeleton key={i} className="h-8 w-full" />
-            ))}
-          </div>
-        </CardContent>
-      </Card>
+      <section>
+        <SectionTitle>{title}</SectionTitle>
+        <Skeleton className="h-48 w-full rounded-2xl bg-white/10" />
+      </section>
     );
   }
-
   if (!standings || standings.length === 0) return null;
+  const scIdx = standings.findIndex((e) => e.abbreviation === "SC" || e.teamName.includes("South Carolina"));
+  const start = Math.max(0, Math.min(scIdx - 2, standings.length - 5));
+  const shown = open || scIdx < 0 ? standings : standings.slice(start, start + 5);
 
   return (
-    <Card>
-      <CardHeader className="pb-3">
-        <CardTitle className="text-lg">SEC Standings</CardTitle>
-      </CardHeader>
-      <CardContent className="px-0">
-        <div className="overflow-x-auto">
-          <table className="w-full text-sm">
-            <thead>
-              <tr className="border-b text-muted-foreground">
-                <th className="text-left pl-4 pr-2 py-2 font-medium">#</th>
-                <th className="text-left px-2 py-2 font-medium">Team</th>
-                <th className="text-center px-2 py-2 font-medium">W-L</th>
-                <th className="text-center px-2 py-2 font-medium">Win%</th>
-                <th className="text-center px-2 py-2 font-medium">Strk</th>
-                <th className="text-center px-2 py-2 pr-4 font-medium">Diff</th>
-              </tr>
-            </thead>
-            <tbody>
-              {standings.map((entry, index) => {
-                const isSC = entry.abbreviation === "SC" || entry.teamName.includes("South Carolina");
-                const diff = parseFloat(entry.runDifferential) || 0;
-
-                return (
-                  <tr
-                    key={entry.teamId}
-                    className={`border-b last:border-0 ${
-                      isSC
-                        ? "bg-primary/10 font-semibold"
-                        : "hover:bg-muted/50"
-                    }`}
-                  >
-                    <td className="pl-4 pr-2 py-2 text-muted-foreground">{index + 1}</td>
-                    <td className="px-2 py-2">
-                      <div className="flex items-center gap-2">
-                        {entry.logo && (
-                          <img
-                            src={entry.logo}
-                            alt={entry.abbreviation}
-                            className="w-5 h-5 object-contain"
-                          />
-                        )}
-                        <span className={isSC ? "text-primary" : ""}>
-                          {entry.abbreviation}
-                        </span>
-                      </div>
-                    </td>
-                    <td className="text-center px-2 py-2">{entry.overall}</td>
-                    <td className="text-center px-2 py-2">
-                      {entry.winPercent !== "0" ? entry.winPercent : "-"}
-                    </td>
-                    <td className="text-center px-2 py-2">
-                      <span className={
-                        entry.streak.startsWith("W") ? "text-green-600 dark:text-green-400" :
-                        entry.streak.startsWith("L") ? "text-red-600 dark:text-red-400" : ""
-                      }>
-                        {entry.streak || "-"}
-                      </span>
-                    </td>
-                    <td className="text-center px-2 py-2 pr-4">
-                      <span className={
-                        diff > 0 ? "text-green-600 dark:text-green-400" :
-                        diff < 0 ? "text-red-600 dark:text-red-400" : ""
-                      }>
-                        {diff > 0 ? `+${entry.runDifferential}` : entry.runDifferential || "-"}
-                      </span>
-                    </td>
-                  </tr>
-                );
-              })}
-            </tbody>
-          </table>
+    <section>
+      <SectionTitle right="SEC % · Overall">{title}</SectionTitle>
+      <Card className="overflow-hidden">
+        <div className="divide-y divide-white/[0.06]">
+          {shown.map((e) => {
+            const sc = e.abbreviation === "SC" || e.teamName.includes("South Carolina");
+            return (
+              <div
+                key={e.teamId}
+                className={cn("flex items-center gap-3 px-4 py-2.5 text-[14px]", sc && "bg-white/[0.05] shadow-[inset_3px_0_0_var(--garnet-bright)]")}
+              >
+                <span className="w-5 text-right text-[12px] text-muted-foreground tabular">{standings.indexOf(e) + 1}</span>
+                <TeamLogo src={e.logo} alt={e.abbreviation} size={20} />
+                <span className={cn("flex-1 truncate", sc && "font-semibold")}>{e.shortName}</span>
+                <span className="w-11 text-right font-medium tabular">{e.confWinPercent || "—"}</span>
+                <span className="w-12 text-right text-muted-foreground tabular">{e.overall || "—"}</span>
+              </div>
+            );
+          })}
         </div>
-      </CardContent>
-    </Card>
+        {standings.length > 5 && (
+          <button
+            type="button"
+            onClick={() => setOpen((v) => !v)}
+            className="flex w-full items-center justify-center gap-1 border-t border-white/[0.06] py-2.5 text-[13px] font-medium text-white/70"
+          >
+            {open ? "Show less" : `All ${standings.length} teams`}
+            <ChevronDown className={cn("size-4 transition-transform", open && "rotate-180")} />
+          </button>
+        )}
+      </Card>
+    </section>
   );
 }
