@@ -111,6 +111,10 @@
 .pt-safe {
   padding-top: env(safe-area-inset-top);
 }
+/* Clears the status bar plus the blur iOS draws just below it in Home Screen apps. */
+.pt-app-top {
+  padding-top: calc(env(safe-area-inset-top) + 20px);
+}
 .pb-safe {
   padding-bottom: env(safe-area-inset-bottom);
 }

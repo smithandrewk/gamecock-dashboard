@@ -44,10 +44,12 @@ function Dashboard() {
   const closeSheet = useCallback(() => setSheet(null), []);
 
   return (
-    // Fixed full-screen shell; only <main> scrolls. The Home Screen app draws a
-    // translucent status bar and iOS blurs whatever scrolls beneath the clock,
-    // so nothing may scroll under it (same fix as Sistine's shell).
-    <div className="pt-safe flex h-dvh flex-col overflow-hidden bg-background">
+    // Full-screen shell; only <main> scrolls. In the Home Screen app iOS blurs a
+    // band under the status bar that runs past the safe-area inset, so the
+    // header is pushed further down (pt-app-top), as in Sistine. Keep it in
+    // normal flow at h-dvh: a position:fixed shell made iOS 27 shrink the web
+    // view by one status bar and leave an empty band under the tab bar.
+    <div className="pt-app-top flex h-dvh flex-col overflow-hidden bg-background">
       <AppHeader
         showInstall={install.ready && !install.standalone}
         subscribed={push.subscribed}
