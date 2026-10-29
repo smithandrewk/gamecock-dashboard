@@ -115,6 +115,16 @@
 .pt-app-top {
   padding-top: calc(env(safe-area-inset-top) + 20px);
 }
+/* iOS 27 sizes a Home Screen app's viewport from the document: a document
+   shorter than the screen leaves the viewport one status bar short (812pt of
+   874) with the tab bar floating above an empty band. Keep the document at
+   least screen-tall; lvh measures the full screen even in that state. */
+@media (display-mode: standalone) {
+  html,
+  body {
+    min-height: 100lvh;
+  }
+}
 .pb-safe {
   padding-bottom: env(safe-area-inset-bottom);
 }
